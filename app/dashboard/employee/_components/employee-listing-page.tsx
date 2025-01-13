@@ -1,37 +1,38 @@
+'use client';
+
 import PageContainer from '@/components/layout/page-container';
-import { Heading } from '@/components/ui/heading';
-import { Separator } from '@/components/ui/separator';
-import { searchParamsCache } from '@/lib/searchparams';
-import EmployeeTable from './employee-tables';
-import { getUserList } from '@/services/users';
+import { Card, CardContent } from '@/components/ui/card';
+import EmployeeTable from './employee-table';
+import { useEffect, useState } from 'react';
+import { getUsersInfo } from '@/services/user';
 
-type TEmployeeListingPage = {};
+export default function EmployeePage() {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const result = await getUsersInfo({ page: 1, limit: 10 });
+        // console.log(result);
+        setData(result.Data[1]);
+      } catch (error) {
+        console.error('Error fetching top-up history:', error);
+      }
+    }
 
-export default async function EmployeeListingPage({}: TEmployeeListingPage) {
-  // Showcasing the use of search params cache in nested RSCs
-  const page = searchParamsCache.get('page');
-  const pageLimit = searchParamsCache.get('limit');
+    fetchData();
+  }, []);
 
-  const filters = {
-    page,
-    limit: pageLimit,
-    // ...(search && { search }),
-    // ...(gender && { genders: gender })
-  };
-
-  const data = await getUserList(filters.page, filters.limit)
-
+  // console.log(data);
   return (
     <PageContainer scrollable>
-      <div className="space-y-4">
-        <div className="flex items-start justify-between">
-          <Heading
-            title={`Employee (${10})`}
-            description=""
-          />
+      <div className="space-y-2">
+        <div className="grid gap-4">
+          <Card>
+            <CardContent>
+              <EmployeeTable data={data} />
+            </CardContent>
+          </Card>
         </div>
-        <Separator />
-        <EmployeeTable data={[]} totalData={10} />
       </div>
     </PageContainer>
   );
