@@ -19,8 +19,6 @@ export default function EmployeeTable({
   totalData: number;
 }) {
   const {
-    genderFilter,
-    setGenderFilter,
     isAnyFilterActive,
     resetFilters,
     searchQuery,
@@ -36,13 +34,6 @@ export default function EmployeeTable({
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           setPage={setPage}
-        />
-        <DataTableFilterBox
-          filterKey="gender"
-          title="Gender"
-          options={GENDER_OPTIONS}
-          setFilterValue={setGenderFilter}
-          filterValue={genderFilter}
         />
         <DataTableResetFilter
           isFilterActive={isAnyFilterActive}
