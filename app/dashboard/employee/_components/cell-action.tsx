@@ -1,5 +1,4 @@
 'use client';
-import { AlertModal } from '@/components/modal/alert-modal';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -12,6 +11,7 @@ import { Employee } from '@/constants/data';
 import { Edit, MoreHorizontal, Trash } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { TopupModal } from './top-up-dialog';
 
 interface CellActionProps {
   data: Employee;
@@ -26,11 +26,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   return (
     <>
-      <AlertModal
+      <TopupModal
         isOpen={open}
         onClose={() => setOpen(false)}
         onConfirm={onConfirm}
         loading={loading}
+        data={data}
       />
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
@@ -43,7 +44,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
           <DropdownMenuItem
-            onClick={() => router.push(`/dashboard/user/${data.id}`)}
+            onClick={() => setOpen(true)}
           >
             <Edit className="mr-2 h-4 w-4" /> Nạp tiền
           </DropdownMenuItem>

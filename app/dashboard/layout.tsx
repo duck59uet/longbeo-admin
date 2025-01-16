@@ -4,6 +4,8 @@ import Header from '@/components/layout/header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
+import StoreToken from '@/components/storeToken';
+
 
 export const metadata: Metadata = {
   title: 'Dichvumat.com',
@@ -21,6 +23,7 @@ export default function DashboardLayout({
   return (
     <KBar>
       <SidebarProvider defaultOpen={defaultOpen}>
+        <StoreToken />
         <AppSidebar />
         <SidebarInset>
           <Header />

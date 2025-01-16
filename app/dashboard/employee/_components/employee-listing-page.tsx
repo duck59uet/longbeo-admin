@@ -28,9 +28,7 @@ export default function EmployeePage() {
       <div className="space-y-2">
         <div className="grid gap-4">
           <Card>
-            <CardContent>
-              <EmployeeTable data={data} />
-            </CardContent>
+            <EmployeeTable data={data} />
           </Card>
         </div>
       </div>
