@@ -77,12 +77,12 @@ export const navItems: NavItem[] = [
     items: [
       {
         title: 'Quản lý đơn facebook',
-        url: '/dashboard/facebook/view',
+        url: '/dashboard/facebook/order',
         icon: 'userPen',
       },
       {
         title: 'Quản lý máy chủ facebook',
-        url: '/dashboard/facebook/view',
+        url: '/dashboard/facebook/service',
         icon: 'userPen',
       },
     ]

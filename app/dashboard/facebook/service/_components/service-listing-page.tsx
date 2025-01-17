@@ -3,28 +3,28 @@
 import PageContainer from '@/components/layout/page-container';
 import { Card } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
-import { getUsersInfo } from '@/services/user';
-import { DataTable as EmployeeTable } from '@/components/ui/table/data-table';
+import { DataTable as OrderTable } from '@/components/ui/table/data-table';
 import { columns } from './columns';
+import { getServiceInfo } from '@/services/service';
+import { toast } from 'sonner';
 
-export default function EmployeePage() {
+export default function ServiceHistoryPage() {
   const [data, setData] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
 
-  const fetchData = async (page: any, limit: any) => {
+  async function fetchServiceInfo() {
     try {
-      const result = await getUsersInfo({ page, limit });
-      setData(result.Data[1]);
-      setTotalItems(result.total[0]);
+      const data = await getServiceInfo(1);
+      setData(data.Data);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');
     }
-  };
+  }
 
   useEffect(() => {
-    fetchData(page, limit);
+    fetchServiceInfo();
   }, [page, limit]);
 
   const handlePageChange = (newPage: any) => {
@@ -41,7 +41,7 @@ export default function EmployeePage() {
       <div className="space-y-2">
         <div className="grid gap-4">
           <Card>
-            <EmployeeTable
+            <OrderTable
               columns={columns}
               data={data}
               totalItems={totalItems}
