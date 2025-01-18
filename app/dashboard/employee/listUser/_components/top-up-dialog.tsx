@@ -52,7 +52,7 @@ export const TopupModal: React.FC<AlertModalProps> = ({
 
       
     const result = await topupUser({
-      user_id: data.id,
+      user_id: data.user_id,
       amount: Number(amount),
       payment_method: payment_method,
       payment_code: payment_code,
