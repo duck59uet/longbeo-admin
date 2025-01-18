@@ -3,11 +3,11 @@
 import PageContainer from '@/components/layout/page-container';
 import { Card } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
-import { getUsersInfo } from '@/services/user';
-import { DataTable as EmployeeTable } from '@/components/ui/table/data-table';
+import { DataTable as TopupTable } from '@/components/ui/table/data-table';
 import { columns } from './columns';
+import { getTopupHistory } from '@/services/topup';
 
-export default function EmployeePage() {
+export default function TopupHistoryPage() {
   const [data, setData] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [page, setPage] = useState(1);
@@ -15,7 +15,7 @@ export default function EmployeePage() {
 
   const fetchData = async (page: any, limit: any) => {
     try {
-      const result = await getUsersInfo({ page, limit });
+      const result = await getTopupHistory({ page, limit });
       setData(result.Data[1]);
       setTotalItems(result.total[0]);
     } catch (error) {
@@ -35,21 +35,18 @@ export default function EmployeePage() {
     setLimit(newLimit);
   };
 
-  // console.log(data);
   return (
     <PageContainer scrollable>
-      <div className="space-y-2">
-        <div className="grid gap-4">
-          <Card>
-            <EmployeeTable
-              columns={columns}
-              data={data}
-              totalItems={totalItems}
-              onPageChange={handlePageChange}
-              onLimitChange={handleLimitChange}
-            />
-          </Card>
-        </div>
+      <div className="grid gap-4">
+        <Card>
+          <TopupTable
+            columns={columns}
+            data={data}
+            totalItems={totalItems}
+            onPageChange={handlePageChange}
+            onLimitChange={handleLimitChange}
+          />
+        </Card>
       </div>
     </PageContainer>
   );

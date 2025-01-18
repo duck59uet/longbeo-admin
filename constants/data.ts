@@ -63,11 +63,21 @@ export const navItems: NavItem[] = [
   },
   {
     title: 'Quản lý tài khoản',
-    url: '/dashboard/employee',
+    url: '#',
     icon: 'user',
-    shortcut: ['e', 'e'],
     isActive: false,
-    items: [] // No child items
+    items: [
+      {
+        title: 'Tài khoản người dùng',
+        url: '/dashboard/employee/listUser',
+        icon: 'userPen',
+      },
+      {
+        title: 'Lịch sử nạp tiền',
+        url: '/dashboard/employee/topupHistory',
+        icon: 'userPen',
+      },
+    ] 
   },
   {
     title: 'Facebook',

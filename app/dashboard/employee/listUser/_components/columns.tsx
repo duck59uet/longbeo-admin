@@ -5,16 +5,24 @@ import { CellAction } from './cell-action';
 
 export const columns: ColumnDef<Employee>[] = [
   {
-    accessorKey: 'username',
+    accessorKey: 'user_username',
     header: 'Tên tài khoản'
   },
   {
-    accessorKey: 'fullname',
+    accessorKey: 'user_fullname',
     header: 'Tên đầy đủ'
   },
   {
-    accessorKey: 'email',
+    accessorKey: 'user_email',
     header: 'Email'
+  },
+  {
+    accessorKey: 'user_phone',
+    header: 'Số điện thoại'
+  },
+  {
+    accessorKey: 'balance_balance',
+    header: 'Số dư'
   },
   {
     id: 'actions',
