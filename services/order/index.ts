@@ -25,18 +25,29 @@ export const getOrder = async (ids: string): Promise<any> => {
 };
 
 export const getOrdersHistory = async ({
+  categoryId = 0,
   page = 1,
   limit = 10
 }: {
+  categoryId ?: number;
   page?: number;
   limit?: number;
 }): Promise<any> => {
   try {
     const response = await authInstance.get(
-      `/order/admin/get?limit=${limit}&page=${page}`
+      `/order/admin/get?categoryId=${categoryId}&limit=${limit}&page=${page}`
     );
     return response.data;
   } catch (error) {
     throw new Error('Failed to login');
+  }
+};
+
+export const updateOrder = async (id: string): Promise<any> => {
+  try {
+    const response = await authInstance.put(`/order/admin/update/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to update order');
   }
 };

@@ -11,16 +11,17 @@ export type User = {
 export const users: User[] = [];
 
 export type BuffHistory = {
-  orderId: string;
-  orderLink: string;
+  order_id: string;
+  order_link: string;
   serviceId: string;
-  orderQuantity: number;
+  order_quantity: number;
   orderAmount: number;
-  orderPrice: number;
-  createdAt: string;
-  orderNote: string;
-  serviceName: string;
-  servicePrice: number; 
+  order_price: number;
+  order_createdAt: string;
+  order_note: string;
+  service_name: string;
+  service_price: number; 
+  order_status: string;
 };
 
 export type Employee = {
@@ -96,12 +97,12 @@ export const navItems: NavItem[] = [
     items: [
       {
         title: 'Quản lý đơn youtube',
-        url: '/dashboard/youtube/view',
+        url: '/dashboard/youtube/order',
         icon: 'userPen',
       },
       {
         title: 'Quản lý máy chủ youtube',
-        url: '/dashboard/youtube/view',
+        url: '/dashboard/youtube/service',
         icon: 'userPen',
       },
     ]
@@ -115,12 +116,12 @@ export const navItems: NavItem[] = [
     items: [
       {
         title: 'Quản lý đơn shopee',
-        url: '/dashboard/shopee/view',
+        url: '/dashboard/shopee/order',
         icon: 'userPen',
       },
       {
         title: 'Quản lý máy chủ shopee',
-        url: '/dashboard/shopee/view',
+        url: '/dashboard/shopee/service',
         icon: 'userPen',
       },
     ]
@@ -134,12 +135,12 @@ export const navItems: NavItem[] = [
     items: [
       {
         title: 'Quản lý đơn instagram',
-        url: '/dashboard/instagram/view',
+        url: '/dashboard/instagram/order',
         icon: 'userPen',
       },
       {
         title: 'Quản lý máy chủ instagram',
-        url: '/dashboard/instagram/view',
+        url: '/dashboard/instagram/service',
         icon: 'userPen',
       },
     ]

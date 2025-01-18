@@ -5,26 +5,26 @@ import { Card } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
 import { DataTable as OrderTable } from '@/components/ui/table/data-table';
 import { columns } from './columns';
-import { getOrdersHistory } from '@/services/order';
+import { getServiceInfo } from '@/services/service';
+import { toast } from 'sonner';
 
-export default function OrderHistoryPage() {
+export default function ServiceHistoryPage() {
   const [data, setData] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
 
-  const fetchData = async (page: any, limit: any) => {
+  async function fetchServiceInfo() {
     try {
-      const result = await getOrdersHistory({ categoryId: 1, page, limit });
-      setData(result.Data[1]);
-      setTotalItems(result.total[0]);
+      const data = await getServiceInfo(4);
+      setData(data.Data);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');
     }
-  };
+  }
 
   useEffect(() => {
-    fetchData(page, limit);
+    fetchServiceInfo();
   }, [page, limit]);
 
   const handlePageChange = (newPage: any) => {

@@ -15,7 +15,7 @@ export default function OrderHistoryPage() {
 
   const fetchData = async (page: any, limit: any) => {
     try {
-      const result = await getOrdersHistory({ categoryId: 1, page, limit });
+      const result = await getOrdersHistory({ categoryId: 3, page, limit });
       setData(result.Data[1]);
       setTotalItems(result.total[0]);
     } catch (error) {
