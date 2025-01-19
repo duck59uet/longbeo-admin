@@ -46,7 +46,8 @@ export const TopupModal: React.FC<AlertModalProps> = ({
 
     if (result.ErrorCode === 'SUCCESSFUL') {
       toast.success('Nạp tiền thành công');
-      onClose();
+      // onClose();
+      window.location.reload();
     }
   };
 
