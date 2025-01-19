@@ -91,33 +91,9 @@ export const TopupModal: React.FC<AlertModalProps> = ({
         </div>
         <div className="grid grid-cols-4 items-center gap-4">
           <Input
-            id="payment_method"
-            name="payment_method"
-            placeholder="Chuyển qua"
-            className="col-span-4"
-          />
-        </div>
-        <div className="grid grid-cols-4 items-center gap-4">
-          <Input
-            id="payment_code"
-            name="payment_code"
-            placeholder="Mã giao dịch"
-            className="col-span-4"
-          />
-        </div>
-        <div className="grid grid-cols-4 items-center gap-4">
-          <Input
             id="sender"
             name="sender"
             placeholder="Người chuyển"
-            className="col-span-4"
-          />
-        </div>
-        <div className="grid grid-cols-4 items-center gap-4">
-          <Input
-            id="content"
-            name="content"
-            placeholder="Nội dung"
             className="col-span-4"
           />
         </div>
