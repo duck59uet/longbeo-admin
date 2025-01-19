@@ -1,6 +1,7 @@
 'use client';
 import { Employee } from '@/constants/data';
 import { ColumnDef } from '@tanstack/react-table';
+import { CellAction } from './cell-action';
 
 export const columns: ColumnDef<Employee>[] = [
   {
@@ -12,19 +13,19 @@ export const columns: ColumnDef<Employee>[] = [
     header: 'Tên đầy đủ'
   },
   {
-    accessorKey: 'admin_fullname',
-    header: 'Admin'
+    accessorKey: 'user_email',
+    header: 'Email'
   },
   {
-    accessorKey: 'topup_createdAt',
-    header: 'Ngày tạo'
+    accessorKey: 'user_phone',
+    header: 'Số điện thoại'
   },
   {
-    accessorKey: 'topup_sender',
-    header: 'Người gửi'
+    accessorKey: 'balance_balance',
+    header: 'Số dư'
   },
   {
-    accessorKey: 'content',
-    header: 'Nội dung'
+    id: 'actions',
+    cell: ({ row }) => <CellAction data={row.original} />
   }
 ];

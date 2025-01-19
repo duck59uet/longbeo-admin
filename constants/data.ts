@@ -68,6 +68,11 @@ export const navItems: NavItem[] = [
     isActive: false,
     items: [
       {
+        title: 'Tài khoản admin',
+        url: '/dashboard/employee/listAdmin',
+        icon: 'userPen',
+      },
+      {
         title: 'Tài khoản người dùng',
         url: '/dashboard/employee/listUser',
         icon: 'userPen',
