@@ -22,12 +22,14 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
   data
 }) => {
   const [isMounted, setIsMounted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', price: '', sourceAddress: '', sourceServiceId: '' });
+  const [formData, setFormData] = useState({ name: '', price: '',
+     sourceAddress: '', sourceServiceId: '', rate: '' });
 
   useEffect(() => {
     setIsMounted(true);
     if (data) {
-      setFormData({ name: data.name, price: data.price, sourceAddress: data.sourceAddress, sourceServiceId: data.sourceServiceId });
+      setFormData({ name: data.name, price: data.price, sourceAddress: data.sourceAddress, 
+      sourceServiceId: data.sourceServiceId, rate: data.rate });
     }
   }, [data]);
 
@@ -41,14 +43,15 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
 
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const { name, price, sourceAddress, sourceServiceId } =
+    const { name, price, sourceAddress, sourceServiceId, rate } =
       Object.fromEntries(formData);
 
     if (
       typeof name !== 'string' ||
       typeof price !== 'string' ||
       typeof sourceAddress !== 'string' ||
-      typeof sourceServiceId !== 'string'
+      typeof sourceServiceId !== 'string' ||
+      typeof rate !== 'string'
     )
       return;
 
@@ -60,6 +63,7 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
         price: Number(price),
         sourceAddress,
         sourceServiceId,
+        rate: Number(rate)
       },
     );
 
@@ -118,6 +122,16 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
             className="col-span-4"
             value={formData.sourceServiceId}
             onChange={(e) => setFormData({ ...formData, sourceServiceId: e.target.value })}
+          />
+        </div>
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Input
+            id="rate"
+            name="rate"
+            placeholder="Tỉ lệ mắt"
+            className="col-span-4"
+            value={formData.price}
+            onChange={(e) => setFormData({ ...formData, price: e.target.value })}
           />
         </div>
         <Button

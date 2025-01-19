@@ -14,6 +14,7 @@ export const updateService = async (id: number, data: {
   price: number;
   sourceAddress: string;
   sourceServiceId: string;
+  rate: number;
 }): Promise<any> => {
   try {
     const response = await authInstance.put(`/service/${id}`, data);
