@@ -104,6 +104,25 @@ export const navItems: NavItem[] = [
     ]
   },
   {
+    title: 'Tiktok',
+    url: '#', // Placeholder as there is no direct link for the parent
+    icon: 'tiktok',
+    isActive: true,
+
+    items: [
+      {
+        title: 'Quản lý đơn tiktok',
+        url: '/dashboard/tiktok/order',
+        icon: 'userPen',
+      },
+      {
+        title: 'Quản lý máy chủ facebook',
+        url: '/dashboard/tiktok/service',
+        icon: 'userPen',
+      },
+    ]
+  },
+  {
     title: 'Youtube',
     url: '#', // Placeholder as there is no direct link for the parent
     icon: 'youtube',

@@ -22,18 +22,6 @@ export const updateInfo = async (data: {
   }
 };
 
-export const changePassword = async (data: {
-  oldPassword: string;
-  newPassword: string;
-}): Promise<any> => {
-  try {
-    const response = await authInstance.post('/user/change-password', data);
-    return response.data;
-  } catch (error) {
-    throw new Error('Failed to change password');
-  }
-};
-
 export const getTopupHistory = async (params: {
   pageSize : number;
   pageIndex : number;
