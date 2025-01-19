@@ -130,7 +130,7 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
             name="rate"
             placeholder="Tỉ lệ mắt"
             className="col-span-4"
-            value={formData.price}
+            value={formData.rate}
             onChange={(e) => setFormData({ ...formData, price: e.target.value })}
           />
         </div>

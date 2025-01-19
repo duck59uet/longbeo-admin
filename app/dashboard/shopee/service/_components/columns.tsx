@@ -21,6 +21,10 @@ export const columns: ColumnDef<Employee>[] = [
     header: 'ID nguồn'
   },
   {
+    accessorKey: 'rate',
+    header: 'Tỉ lệ mắt'
+  },
+  {
     id: 'actions',
     cell: ({ row }) => <CellAction data={row.original} />
   }
