@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { Modal } from '@/components/ui/modal';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { topupUser } from '@/services/users';
 import { toast } from 'sonner';
@@ -18,8 +17,6 @@ interface AlertModalProps {
 export const TopupModal: React.FC<AlertModalProps> = ({
   isOpen,
   onClose,
-  onConfirm,
-  loading,
   data
 }) => {
   const [isMounted, setIsMounted] = useState(false);
@@ -33,31 +30,21 @@ export const TopupModal: React.FC<AlertModalProps> = ({
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    
     e.preventDefault();
 
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const { amount, payment_method, payment_code, sender, content } =
-      Object.fromEntries(formData);
+    const { amount, sender } = Object.fromEntries(formData);
 
-    if (
-      typeof amount !== 'string' ||
-      typeof payment_method !== 'string' ||
-      typeof payment_code !== 'string' ||
-      typeof sender !== 'string' ||
-      typeof content !== 'string'
-    )
-      return;
+    if (typeof amount !== 'string' || typeof sender !== 'string') return;
 
-      
     const result = await topupUser({
       user_id: data.user_id,
       amount: Number(amount),
-      sender: sender,
+      sender: sender
     });
 
-    if(result.ErrorCode === "SUCCESSFUL") {
+    if (result.ErrorCode === 'SUCCESSFUL') {
       toast.success('Nạp tiền thành công');
       onClose();
     }
@@ -100,7 +87,9 @@ export const TopupModal: React.FC<AlertModalProps> = ({
         <Button
           type="submit"
           className="w-full bg-[#4680FF] text-white hover:bg-[#2E5BFF]"
-          onClick={() => {handleSubmit}}
+          onClick={() => {
+            handleSubmit;
+          }}
         >
           Nạp tiền
         </Button>
