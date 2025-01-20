@@ -101,6 +101,11 @@ export const navItems: NavItem[] = [
         url: '/dashboard/facebook/service',
         icon: 'userPen',
       },
+      {
+        title: 'Quản lý thời gian ứng với máy chủ',
+        url: '/dashboard/facebook/serviceTime',
+        icon: 'userPen',
+      }
     ]
   },
   {
