@@ -20,7 +20,7 @@ export type BuffHistory = {
   order_createdAt: string;
   order_note: string;
   service_name: string;
-  service_price: number; 
+  service_price: number;
   order_status: string;
 };
 
@@ -28,6 +28,18 @@ export type Employee = {
   id: string;
   username: string;
   fullname: string;
+};
+
+export type Service = {
+  id: number;
+  name: string;
+  price: number;
+  categoryId: number;
+  description: string;
+  sourceAddress: string;
+  status: number;
+  rate: number;
+  apiKey: string;
 };
 
 export type TopupHistory = {
@@ -39,7 +51,7 @@ export type TopupHistory = {
   payment_code: string;
   sender: string;
   content: string;
-}
+};
 
 export type Product = {
   photo_url: string;
@@ -70,19 +82,19 @@ export const navItems: NavItem[] = [
       {
         title: 'Tài khoản admin',
         url: '/dashboard/employee/listAdmin',
-        icon: 'userPen',
+        icon: 'userPen'
       },
       {
         title: 'Tài khoản người dùng',
         url: '/dashboard/employee/listUser',
-        icon: 'userPen',
+        icon: 'userPen'
       },
       {
         title: 'Lịch sử nạp tiền',
         url: '/dashboard/employee/topupHistory',
-        icon: 'userPen',
-      },
-    ] 
+        icon: 'userPen'
+      }
+    ]
   },
   {
     title: 'Facebook',
@@ -94,17 +106,17 @@ export const navItems: NavItem[] = [
       {
         title: 'Quản lý đơn facebook',
         url: '/dashboard/facebook/order',
-        icon: 'userPen',
+        icon: 'userPen'
       },
       {
         title: 'Quản lý máy chủ facebook',
         url: '/dashboard/facebook/service',
-        icon: 'userPen',
+        icon: 'userPen'
       },
       {
         title: 'Quản lý thời gian ứng với máy chủ',
         url: '/dashboard/facebook/serviceTime',
-        icon: 'userPen',
+        icon: 'userPen'
       }
     ]
   },
@@ -118,13 +130,13 @@ export const navItems: NavItem[] = [
       {
         title: 'Quản lý đơn tiktok',
         url: '/dashboard/tiktok/order',
-        icon: 'userPen',
+        icon: 'userPen'
       },
       {
         title: 'Quản lý máy chủ facebook',
         url: '/dashboard/tiktok/service',
-        icon: 'userPen',
-      },
+        icon: 'userPen'
+      }
     ]
   },
   {
@@ -137,13 +149,13 @@ export const navItems: NavItem[] = [
       {
         title: 'Quản lý đơn youtube',
         url: '/dashboard/youtube/order',
-        icon: 'userPen',
+        icon: 'userPen'
       },
       {
         title: 'Quản lý máy chủ youtube',
         url: '/dashboard/youtube/service',
-        icon: 'userPen',
-      },
+        icon: 'userPen'
+      }
     ]
   },
   {
@@ -156,13 +168,13 @@ export const navItems: NavItem[] = [
       {
         title: 'Quản lý đơn shopee',
         url: '/dashboard/shopee/order',
-        icon: 'userPen',
+        icon: 'userPen'
       },
       {
         title: 'Quản lý máy chủ shopee',
         url: '/dashboard/shopee/service',
-        icon: 'userPen',
-      },
+        icon: 'userPen'
+      }
     ]
   },
   {
@@ -175,13 +187,13 @@ export const navItems: NavItem[] = [
       {
         title: 'Quản lý đơn instagram',
         url: '/dashboard/instagram/order',
-        icon: 'userPen',
+        icon: 'userPen'
       },
       {
         title: 'Quản lý máy chủ instagram',
         url: '/dashboard/instagram/service',
-        icon: 'userPen',
-      },
+        icon: 'userPen'
+      }
     ]
-  },
+  }
 ];

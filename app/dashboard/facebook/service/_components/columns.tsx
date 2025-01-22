@@ -1,9 +1,9 @@
 'use client';
-import { Employee } from '@/constants/data';
+import { Service } from '@/constants/data';
 import { ColumnDef } from '@tanstack/react-table';
 import { CellAction } from './cell-action';
 
-export const columns: ColumnDef<Employee>[] = [
+export const columns: ColumnDef<Service>[] = [
   {
     accessorKey: 'name',
     header: 'Tên máy chủ'
@@ -17,8 +17,12 @@ export const columns: ColumnDef<Employee>[] = [
     header: 'Nguồn'
   },
   {
-    accessorKey: 'sourceServiceId',
-    header: 'ID nguồn'
+    accessorKey: 'status',
+    header: 'Trạng thái',
+    cell: ({ row }) => {
+      const status = row.original.status;
+      return status === 1 ? 'Đang hoạt động' : 'Không hoạt động';
+    }
   },
   {
     accessorKey: 'rate',

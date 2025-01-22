@@ -5,26 +5,28 @@ import { Card } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
 import { DataTable as OrderTable } from '@/components/ui/table/data-table';
 import { columns } from './columns';
-import { getServiceInfo } from '@/services/service';
 import { toast } from 'sonner';
+import NewServiceTimeDialog from './new-serviceTime';
+import { getServiceTimeInfo } from '@/services/serviceTime';
 
-export default function ServiceHistoryPage() {
+export default function ServiceTimeHistoryPage() {
   const [data, setData] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
 
-  async function fetchServiceInfo() {
+  async function fetchServiceInfo(page: number, limit: number) {
     try {
-      const data = await getServiceInfo(1);
-      setData(data.Data);
+      const data = await getServiceTimeInfo({ categoryId: 1, page, limit });
+      setData(data.Data[1]);
+      setTotalItems(data.Data[0]);
     } catch (error) {
       toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');
     }
   }
 
   useEffect(() => {
-    fetchServiceInfo();
+    fetchServiceInfo(page, limit);
   }, [page, limit]);
 
   const handlePageChange = (newPage: any) => {
@@ -39,17 +41,18 @@ export default function ServiceHistoryPage() {
   return (
     <PageContainer scrollable>
       <div className="space-y-2">
-        <div className="grid gap-4">
-          <Card>
-            <OrderTable
-              columns={columns}
-              data={data}
-              totalItems={totalItems}
-              onPageChange={handlePageChange}
-              onLimitChange={handleLimitChange}
-            />
-          </Card>
+        <div className="flex items-start justify-between">
+          <NewServiceTimeDialog />
         </div>
+        <Card>
+          <OrderTable
+            columns={columns}
+            data={data}
+            totalItems={totalItems}
+            onPageChange={handlePageChange}
+            onLimitChange={handleLimitChange}
+          />
+        </Card>
       </div>
     </PageContainer>
   );
