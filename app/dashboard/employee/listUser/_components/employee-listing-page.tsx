@@ -41,7 +41,6 @@ export default function EmployeePage() {
     setUsername(e.target.value);
   };
 
-  // console.log(data);
   return (
     <PageContainer scrollable>
       <div className="space-y-2">

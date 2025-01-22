@@ -60,12 +60,9 @@ export default function NewServiceTimeDialog() {
         const response = await getServiceInfo(1);
         if (response.Data) {
           setServiceData(response.Data);
-          console.log('Dữ liệu dịch vụ:', serviceData);
-        } else {
-          console.error('Dữ liệu không hợp lệ:', response);
         }
       } catch (error) {
-        console.error('Lỗi khi gọi API:', error);
+        // console.error('Lỗi khi gọi API:', error);
       }
     };
 
