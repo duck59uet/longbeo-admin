@@ -114,7 +114,7 @@ export const navItems: NavItem[] = [
         icon: 'userPen'
       },
       {
-        title: 'Quản lý thời gian ứng với máy chủ',
+        title: 'Quản lý thời gian facebook',
         url: '/dashboard/facebook/serviceTime',
         icon: 'userPen'
       }
@@ -133,8 +133,13 @@ export const navItems: NavItem[] = [
         icon: 'userPen'
       },
       {
-        title: 'Quản lý máy chủ facebook',
+        title: 'Quản lý máy chủ tiktok',
         url: '/dashboard/tiktok/service',
+        icon: 'userPen'
+      },
+      {
+        title: 'Quản lý thời gian tiktok',
+        url: '/dashboard/tiktok/serviceTime',
         icon: 'userPen'
       }
     ]
@@ -155,6 +160,11 @@ export const navItems: NavItem[] = [
         title: 'Quản lý máy chủ youtube',
         url: '/dashboard/youtube/service',
         icon: 'userPen'
+      },
+      {
+        title: 'Quản lý thời gian youtube',
+        url: '/dashboard/youtube/serviceTime',
+        icon: 'userPen'
       }
     ]
   },
@@ -174,6 +184,11 @@ export const navItems: NavItem[] = [
         title: 'Quản lý máy chủ shopee',
         url: '/dashboard/shopee/service',
         icon: 'userPen'
+      },
+      {
+        title: 'Quản lý thời gian shopee',
+        url: '/dashboard/shopee/serviceTime',
+        icon: 'userPen'
       }
     ]
   },
@@ -192,6 +207,11 @@ export const navItems: NavItem[] = [
       {
         title: 'Quản lý máy chủ instagram',
         url: '/dashboard/instagram/service',
+        icon: 'userPen'
+      },
+      {
+        title: 'Quản lý thời gian instagram',
+        url: '/dashboard/instagram/serviceTime',
         icon: 'userPen'
       }
     ]
