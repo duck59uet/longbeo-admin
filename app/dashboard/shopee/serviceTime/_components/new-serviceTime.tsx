@@ -57,7 +57,7 @@ export default function NewServiceTimeDialog() {
   useEffect(() => {
     const fetchServiceData = async () => {
       try {
-        const response = await getServiceInfo(1);
+        const response = await getServiceInfo(3);
         if (response.Data) {
           setServiceData(response.Data);
         }
