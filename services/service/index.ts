@@ -23,3 +23,12 @@ export const updateService = async (id: number, data: {
     throw new Error('Failed to update service');
   }
 };
+
+export const changeServiceStatus = async (id: number): Promise<any> => {
+  try {
+    const response = await authInstance.put(`/service/status/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to update service status');
+  }
+};

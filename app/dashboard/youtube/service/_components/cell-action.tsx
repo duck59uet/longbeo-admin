@@ -7,14 +7,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import { Employee } from '@/constants/data';
+import { Service } from '@/constants/data';
 import { Edit, MoreHorizontal, Trash } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { UpdateServiceModal } from './update-dialog';
 
 interface CellActionProps {
-  data: Employee;
+  data: Service;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
@@ -40,12 +40,17 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Tháo tác</DropdownMenuLabel>
+          <DropdownMenuLabel>Thao tác</DropdownMenuLabel>
 
           <DropdownMenuItem
             onClick={() => setOpen(true)}
           >
             <Edit className="mr-2 h-4 w-4" /> Chỉnh sửa
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => setOpen(true)}
+          >
+            <Edit className="mr-2 h-4 w-4" /> Cập nhật trạng thái
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
