@@ -12,6 +12,9 @@ import { Edit, MoreHorizontal, Trash } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { UpdateServiceModal } from './update-dialog';
+import { ConfirmModal } from './confirm-modal';
+import { changeServiceStatus } from '@/services/service';
+import { toast } from 'sonner';
 
 interface CellActionProps {
   data: Service;
@@ -20,11 +23,27 @@ interface CellActionProps {
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [openChangeStatus, setOpenChangeStatus] = useState(false);
 
   const onConfirm = async () => {};
 
+  const onConfirmChangeStatus = async () => {
+    console.log(data.id);
+    const result = await changeServiceStatus(data.id);
+    if (result.ErrorCode === 'SUCCESSFUL') {
+      toast.success('Cập nhật trạng thái thành công');
+      window.location.reload();
+    }
+  };
+
   return (
     <>
+      <ConfirmModal
+        isOpen={openChangeStatus}
+        onClose={() => setOpenChangeStatus(false)}
+        onConfirm={onConfirmChangeStatus}
+        loading={loading}
+      />
       <UpdateServiceModal
         isOpen={open}
         onClose={() => setOpen(false)}
@@ -42,14 +61,10 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Thao tác</DropdownMenuLabel>
 
-          <DropdownMenuItem
-            onClick={() => setOpen(true)}
-          >
+          <DropdownMenuItem onClick={() => setOpen(true)}>
             <Edit className="mr-2 h-4 w-4" /> Chỉnh sửa
           </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => setOpen(true)}
-          >
+          <DropdownMenuItem onClick={() => setOpen(true)}>
             <Edit className="mr-2 h-4 w-4" /> Cập nhật trạng thái
           </DropdownMenuItem>
         </DropdownMenuContent>
