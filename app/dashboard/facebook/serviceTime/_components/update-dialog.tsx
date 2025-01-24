@@ -29,7 +29,7 @@ export const UpdateServiceTimeModal: React.FC<AlertModalProps> = ({
     setIsMounted(true);
     if (data) {
       setFormData({
-        name: data.name || '', 
+        name: data.serviceName || '', 
         time: data.time || '',
         sourceServiceId: data.sourceServiceId || '',
       });

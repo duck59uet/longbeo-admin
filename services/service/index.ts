@@ -13,7 +13,6 @@ export const updateService = async (id: number, data: {
   name: string;
   price: number;
   sourceAddress: string;
-  sourceServiceId: string;
   rate: number;
 }): Promise<any> => {
   try {

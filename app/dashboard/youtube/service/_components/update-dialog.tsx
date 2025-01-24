@@ -1,11 +1,10 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import { Modal } from '@/components/ui/modal';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { updateServiceTime } from '@/services/serviceTime';
+import { updateService } from '@/services/service';
 
 interface AlertModalProps {
   isOpen: boolean;
@@ -15,26 +14,21 @@ interface AlertModalProps {
   data: any;
 }
 
-export const UpdateServiceTimeModal: React.FC<AlertModalProps> = ({
+export const UpdateServiceModal: React.FC<AlertModalProps> = ({
   isOpen,
   onClose,
   onConfirm,
   loading,
-  data,
+  data
 }) => {
   const [isMounted, setIsMounted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', time: '', sourceServiceId: '' });
+  const [formData, setFormData] = useState({ name: '', price: '', sourceAddress: '',rate: '' });
 
   useEffect(() => {
     setIsMounted(true);
     if (data) {
-      setFormData({
-        name: data.name || '', 
-        time: data.time || '',
-        sourceServiceId: data.sourceServiceId || '',
-      });
+      setFormData({ name: data.name, price: data.price, sourceAddress: data.sourceAddress,  rate: data.rate });
     }
-    console.log()
   }, [data]);
 
   if (!isMounted) {
@@ -42,30 +36,39 @@ export const UpdateServiceTimeModal: React.FC<AlertModalProps> = ({
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    
     e.preventDefault();
 
-    if (!formData.time || !formData.sourceServiceId) {
-      toast.error('Vui lòng nhập đầy đủ thông tin.');
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const { name, price, sourceAddress, sourceServiceId, rate } =
+      Object.fromEntries(formData);
+
+    if (
+      typeof name !== 'string' ||
+      typeof price !== 'string' ||
+      typeof sourceAddress !== 'string' ||
+      typeof rate !== 'string'
+    )
       return;
-    }
 
-    try {
-      const result = await updateServiceTime(data.id, {
-        time: formData.time,
-        sourceServiceId: formData.sourceServiceId,
-      });
+      
+    const result = await updateService(
+      data.id,
+      {
+        name,
+        price: Number(price),
+        sourceAddress,
+        rate: Number(rate),
+      },
+    );
 
-      if (result.ErrorCode === 'SUCCESSFUL') {
-        toast.success('Chỉnh sửa thành công');
-        onClose();
-        window.location.reload();
-      } else {
-        toast.error(
-          'Trong quá trình chỉnh sửa đã xảy ra lỗi. Vui lòng thử lại sau.'
-        );
-      }
-    } catch (error) {
-      toast.error('Có lỗi xảy ra. Vui lòng thử lại sau.');
+    if(result.ErrorCode === "SUCCESSFUL") {
+      toast.success('Chỉnh sửa thành công');
+      onClose();
+      window.location.reload();
+    } else {
+      toast.error('Trong quá trình chỉnh sửa đã xảy ra lỗi. Vui lòng thử lại sau.');
     }
   };
 
@@ -76,51 +79,53 @@ export const UpdateServiceTimeModal: React.FC<AlertModalProps> = ({
       isOpen={isOpen}
       onClose={onClose}
     >
-      <form
-        id="service-time-form"
-        className="grid gap-4 py-4"
-        onSubmit={handleSubmit}
-      >
+      <form id="service-form" className="grid gap-4 py-4" onSubmit={handleSubmit}>
         <div className="grid grid-cols-4 items-center gap-4">
           <Input
             id="name"
             name="name"
             placeholder="Tên máy chủ"
             className="col-span-4"
-            value={formData.name || ''} 
-            disabled 
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           />
         </div>
         <div className="grid grid-cols-4 items-center gap-4">
           <Input
-            id="time"
-            name="time"
-            placeholder="Thời gian"
+            id="price"
+            name="price"
+            placeholder="Giá tiền"
             className="col-span-4"
-            value={formData.time}
-            onChange={(e) =>
-              setFormData({ ...formData, time: e.target.value })
-            }
+            value={formData.price}
+            onChange={(e) => setFormData({ ...formData, price: e.target.value })}
           />
         </div>
         <div className="grid grid-cols-4 items-center gap-4">
           <Input
-            id="sourceServiceId"
-            name="sourceServiceId"
-            placeholder="ID nguồn"
+            id="sourceAddress"
+            name="sourceAddress"
+            placeholder="Nguồn"
             className="col-span-4"
-            value={formData.sourceServiceId}
-            onChange={(e) =>
-              setFormData({ ...formData, sourceServiceId: e.target.value })
-            }
+            value={formData.sourceAddress}
+            onChange={(e) => setFormData({ ...formData, sourceAddress: e.target.value })}
+          />
+        </div>
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Input
+            id="rate"
+            name="rate"
+            placeholder="Tỉ lệ mắt"
+            className="col-span-4"
+            value={formData.rate}
+            onChange={(e) => setFormData({ ...formData, rate: e.target.value })}
           />
         </div>
         <Button
           type="submit"
           className="w-full bg-[#4680FF] text-white hover:bg-[#2E5BFF]"
-          disabled={loading}
+          onClick={() => {handleSubmit}}
         >
-          {loading ? 'Đang xử lý...' : 'Chỉnh sửa'}
+          Chỉnh sửa
         </Button>
       </form>
     </Modal>

@@ -10,7 +10,7 @@ import {
 import { Service } from '@/constants/data';
 import { Edit, MoreHorizontal } from 'lucide-react';
 import { useState } from 'react';
-import { UpdateServiceTimeModal } from './update-dialog';
+import { UpdateServiceModal } from './update-dialog';
 import { ConfirmModal } from './confirm-modal';
 import { changeServiceStatus } from '@/services/service';
 import { toast } from 'sonner';
@@ -43,7 +43,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         onConfirm={onConfirmChangeStatus}
         loading={loading}
       />
-      <UpdateServiceTimeModal
+      <UpdateServiceModal
         isOpen={open}
         onClose={() => setOpen(false)}
         onConfirm={onConfirm}
