@@ -32,3 +32,15 @@ export const createServiceTime = async (data: {
     throw new Error('Failed to create service time');
   }
 };
+
+export const updateServiceTime = async (id: number, data: {
+  time: string;
+  sourceServiceId: string;
+}): Promise<any> => {
+  try {
+    const response = await authInstance.put(`/service_time/${id}`, data);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to update service time');
+  }
+};

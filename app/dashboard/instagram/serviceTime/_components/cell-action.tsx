@@ -11,7 +11,7 @@ import { Employee } from '@/constants/data';
 import { Edit, MoreHorizontal, Trash } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { UpdateServiceModal } from './update-dialog';
+import { UpdateServiceTimeModal } from './update-dialog';
 
 interface CellActionProps {
   data: Employee;
@@ -25,7 +25,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   return (
     <>
-      <UpdateServiceModal
+      <UpdateServiceTimeModal
         isOpen={open}
         onClose={() => setOpen(false)}
         onConfirm={onConfirm}

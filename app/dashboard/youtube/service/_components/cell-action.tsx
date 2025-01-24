@@ -8,10 +8,9 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { Service } from '@/constants/data';
-import { Edit, MoreHorizontal, Trash } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { Edit, MoreHorizontal } from 'lucide-react';
 import { useState } from 'react';
-import { UpdateServiceModal } from './update-dialog';
+import { UpdateServiceTimeModal } from './update-dialog';
 import { ConfirmModal } from './confirm-modal';
 import { changeServiceStatus } from '@/services/service';
 import { toast } from 'sonner';
@@ -44,7 +43,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         onConfirm={onConfirmChangeStatus}
         loading={loading}
       />
-      <UpdateServiceModal
+      <UpdateServiceTimeModal
         isOpen={open}
         onClose={() => setOpen(false)}
         onConfirm={onConfirm}
