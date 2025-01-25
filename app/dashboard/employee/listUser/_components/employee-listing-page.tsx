@@ -27,7 +27,7 @@ export default function EmployeePage() {
 
   useEffect(() => {
     fetchData(page, limit, username);
-  }, [page, limit]);
+  }, [page, limit, username]);
 
   const handlePageChange = (newPage: any) => {
     setPage(newPage);
