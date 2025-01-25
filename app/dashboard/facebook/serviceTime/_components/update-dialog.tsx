@@ -87,30 +87,10 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
           <Input
             id="name"
             name="name"
-            placeholder="Tên máy chủ"
+            placeholder="Thời gian"
             className="col-span-4"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          />
-        </div>
-        <div className="grid grid-cols-4 items-center gap-4">
-          <Input
-            id="price"
-            name="price"
-            placeholder="Giá tiền"
-            className="col-span-4"
-            value={formData.price}
-            onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-          />
-        </div>
-        <div className="grid grid-cols-4 items-center gap-4">
-          <Input
-            id="sourceAddress"
-            name="sourceAddress"
-            placeholder="Nguồn"
-            className="col-span-4"
-            value={formData.sourceAddress}
-            onChange={(e) => setFormData({ ...formData, sourceAddress: e.target.value })}
           />
         </div>
         <div className="grid grid-cols-4 items-center gap-4">
@@ -121,16 +101,6 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
             className="col-span-4"
             value={formData.sourceServiceId}
             onChange={(e) => setFormData({ ...formData, sourceServiceId: e.target.value })}
-          />
-        </div>
-        <div className="grid grid-cols-4 items-center gap-4">
-          <Input
-            id="rate"
-            name="rate"
-            placeholder="Tỉ lệ mắt"
-            className="col-span-4"
-            value={formData.rate}
-            onChange={(e) => setFormData({ ...formData, price: e.target.value })}
           />
         </div>
         <Button

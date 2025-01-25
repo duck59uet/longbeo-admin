@@ -32,3 +32,12 @@ export const createServiceTime = async (data: {
     throw new Error('Failed to create service time');
   }
 };
+
+export const deleteServiceTime = async (id: number): Promise<any> => {
+  try {
+    const response = await authInstance.post(`/service_time/delete`, { id });
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to delete service time');
+  }
+}
