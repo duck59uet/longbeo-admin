@@ -22,14 +22,12 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
   data
 }) => {
   const [isMounted, setIsMounted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', price: '', sourceAddress: '',
-     sourceServiceId: '', rate: '' });
+  const [formData, setFormData] = useState({ name: '', price: '', sourceAddress: '',rate: '' });
 
   useEffect(() => {
     setIsMounted(true);
     if (data) {
-      setFormData({ name: data.name, price: data.price, sourceAddress: data.sourceAddress, 
-        sourceServiceId: data.sourceServiceId, rate: data.rate });
+      setFormData({ name: data.name, price: data.price, sourceAddress: data.sourceAddress,  rate: data.rate });
     }
   }, [data]);
 
@@ -50,7 +48,6 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
       typeof name !== 'string' ||
       typeof price !== 'string' ||
       typeof sourceAddress !== 'string' ||
-      typeof sourceServiceId !== 'string' ||
       typeof rate !== 'string'
     )
       return;
@@ -62,7 +59,6 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
         name,
         price: Number(price),
         sourceAddress,
-        sourceServiceId,
         rate: Number(rate),
       },
     );
@@ -116,22 +112,12 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
         </div>
         <div className="grid grid-cols-4 items-center gap-4">
           <Input
-            id="sourceServiceId"
-            name="sourceServiceId"
-            placeholder="ID nguồn"
-            className="col-span-4"
-            value={formData.sourceServiceId}
-            onChange={(e) => setFormData({ ...formData, sourceServiceId: e.target.value })}
-          />
-        </div>
-        <div className="grid grid-cols-4 items-center gap-4">
-          <Input
             id="rate"
             name="rate"
             placeholder="Tỉ lệ mắt"
             className="col-span-4"
             value={formData.rate}
-            onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+            onChange={(e) => setFormData({ ...formData, rate: e.target.value })}
           />
         </div>
         <Button

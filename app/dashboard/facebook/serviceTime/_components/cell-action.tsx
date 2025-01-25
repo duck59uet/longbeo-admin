@@ -9,12 +9,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Employee } from '@/constants/data';
 import { Edit, MoreHorizontal, Trash } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { UpdateServiceModal } from './update-dialog';
-import { ConfirmModal } from './confirm-modal';
-import { toast } from 'sonner';
+import { UpdateServiceTimeModal } from './update-dialog';
 import { deleteServiceTime } from '@/services/serviceTime';
+import { toast } from 'sonner';
+import { ConfirmModal } from './confirm-modal';
 
 interface CellActionProps {
   data: Employee;
@@ -38,18 +37,18 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   return (
     <>
-      <ConfirmModal
-        isOpen={openDelete}
-        onClose={() => setOpenDelete(false)}
-        onConfirm={onConfirmDelete}
-        loading={loading}
-      />
-      <UpdateServiceModal
+      <UpdateServiceTimeModal
         isOpen={open}
         onClose={() => setOpen(false)}
         onConfirm={onConfirm}
         loading={loading}
         data={data}
+      />
+      <ConfirmModal
+        isOpen={openDelete}
+        onClose={() => setOpenDelete(false)}
+        onConfirm={onConfirmDelete}
+        loading={loading}
       />
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>

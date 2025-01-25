@@ -8,10 +8,12 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { Employee } from '@/constants/data';
-import { Edit, MoreHorizontal, Trash } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { Edit, MoreHorizontal } from 'lucide-react';
 import { useState } from 'react';
-import { UpdateServiceModal } from './update-dialog';
+import { UpdateServiceTimeModal } from './update-dialog';
+import { deleteServiceTime } from '@/services/serviceTime';
+import { toast } from 'sonner';
+import { ConfirmModal } from './confirm-modal';
 
 interface CellActionProps {
   data: Employee;
@@ -20,12 +22,28 @@ interface CellActionProps {
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
 
   const onConfirm = async () => {};
 
+  const onConfirmDelete = async () => {
+    const result = await deleteServiceTime(Number(data.id));
+    if (result.ErrorCode === 'SUCCESSFUL') {
+      toast.success('Xóa thành công');
+      window.location.reload();
+    }
+    // window.location.reload();
+  };
+
   return (
     <>
-      <UpdateServiceModal
+      <ConfirmModal
+        isOpen={openDelete}
+        onClose={() => setOpenDelete(false)}
+        onConfirm={onConfirmDelete}
+        loading={loading}
+      />
+      <UpdateServiceTimeModal
         isOpen={open}
         onClose={() => setOpen(false)}
         onConfirm={onConfirm}
@@ -42,9 +60,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Tháo tác</DropdownMenuLabel>
 
-          <DropdownMenuItem
-            onClick={() => setOpen(true)}
-          >
+          <DropdownMenuItem onClick={() => setOpen(true)}>
             <Edit className="mr-2 h-4 w-4" /> Chỉnh sửa
           </DropdownMenuItem>
         </DropdownMenuContent>
