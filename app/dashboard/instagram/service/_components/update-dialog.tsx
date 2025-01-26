@@ -22,13 +22,14 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
   data
 }) => {
   const [isMounted, setIsMounted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', price: '',
-     sourceAddress: '', rate: '' });
+  const [formData, setFormData] = useState({ name: '', price: '', 
+     sourceAddress: '', rate: '', apiKey: '' });
 
   useEffect(() => {
     setIsMounted(true);
     if (data) {
-      setFormData({ name: data.name, price: data.price, sourceAddress: data.sourceAddress, rate: data.rate });
+      setFormData({ name: data.name, price: data.price, sourceAddress: data.sourceAddress, 
+        rate: data.rate, apiKey: data.apiKey });
     }
   }, [data]);
 
@@ -42,14 +43,15 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
 
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const { name, price, sourceAddress, sourceServiceId, rate } =
+    const { name, price, sourceAddress, sourceServiceId, rate, apiKey } =
       Object.fromEntries(formData);
 
     if (
       typeof name !== 'string' ||
       typeof price !== 'string' ||
       typeof sourceAddress !== 'string' ||
-      typeof rate !== 'string'
+      typeof rate !== 'string' ||
+      typeof apiKey !== 'string'
     )
       return;
 
@@ -60,7 +62,8 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
         name,
         price: Number(price),
         sourceAddress,
-        rate: Number(rate)
+        rate: Number(rate),
+        apiKey
       },
     );
 
@@ -119,6 +122,16 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
             className="col-span-4"
             value={formData.rate}
             onChange={(e) => setFormData({ ...formData, rate: e.target.value })}
+          />
+        </div>
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Input
+            id="apiKey"
+            name="apiKey"
+            placeholder="Key"
+            className="col-span-4"
+            value={formData.apiKey}
+            onChange={(e) => setFormData({ ...formData, apiKey: e.target.value })}
           />
         </div>
         <Button
