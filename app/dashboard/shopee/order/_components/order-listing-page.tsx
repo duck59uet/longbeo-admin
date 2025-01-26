@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { DataTable as OrderTable } from '@/components/ui/table/data-table';
 import { columns } from './columns';
 import { getOrdersHistory } from '@/services/order';
+import OrderHistoryDialog from './export-history';
 
 export default function OrderHistoryPage() {
   const [data, setData] = useState([]);
@@ -39,17 +40,18 @@ export default function OrderHistoryPage() {
   return (
     <PageContainer scrollable>
       <div className="space-y-2">
-        <div className="grid gap-4">
-          <Card>
-            <OrderTable
-              columns={columns}
-              data={data}
-              totalItems={totalItems}
-              onPageChange={handlePageChange}
-              onLimitChange={handleLimitChange}
-            />
-          </Card>
+        <div className="flex items-start justify-between">
+          <OrderHistoryDialog />
         </div>
+        <Card>
+          <OrderTable
+            columns={columns}
+            data={data}
+            totalItems={totalItems}
+            onPageChange={handlePageChange}
+            onLimitChange={handleLimitChange}
+          />
+        </Card>
       </div>
     </PageContainer>
   );
