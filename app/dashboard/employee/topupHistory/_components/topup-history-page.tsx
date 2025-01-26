@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { DataTable as TopupTable } from '@/components/ui/table/data-table';
 import { columns } from './columns';
 import { getTopupHistory } from '@/services/topup';
+import TopupHistoryDialog from './export-history';
 
 export default function TopupHistoryPage() {
   const [data, setData] = useState([]);
@@ -37,7 +38,10 @@ export default function TopupHistoryPage() {
 
   return (
     <PageContainer scrollable>
-      <div className="grid gap-4">
+      <div className="space-y-2">
+        <div className="flex items-start justify-between">
+          <TopupHistoryDialog />
+        </div>
         <Card>
           <TopupTable
             columns={columns}
