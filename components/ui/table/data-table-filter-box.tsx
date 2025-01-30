@@ -23,7 +23,7 @@ import { CheckIcon } from 'lucide-react';
 import { Options } from 'nuqs';
 import React from 'react';
 
-interface FilterOption {
+export interface FilterOption {
   value: string;
   label: string;
   icon?: React.ComponentType<{ className?: string }>;
