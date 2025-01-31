@@ -121,6 +121,30 @@ export const navItems: NavItem[] = [
     ]
   },
   {
+    title: 'Facebook - View',
+    url: '#', // Placeholder as there is no direct link for the parent
+    icon: 'facebook',
+    isActive: true,
+
+    items: [
+      {
+        title: 'Quản lý đơn facebook',
+        url: '/dashboard/facebookView/order',
+        icon: 'userPen'
+      },
+      {
+        title: 'Quản lý máy chủ facebook',
+        url: '/dashboard/facebookView/service',
+        icon: 'userPen'
+      },
+      {
+        title: 'Quản lý thời gian facebook',
+        url: '/dashboard/facebookView/serviceTime',
+        icon: 'userPen'
+      }
+    ]
+  },
+  {
     title: 'Tiktok',
     url: '#', // Placeholder as there is no direct link for the parent
     icon: 'tiktok',
@@ -145,6 +169,30 @@ export const navItems: NavItem[] = [
     ]
   },
   {
+    title: 'Tiktok - View',
+    url: '#', // Placeholder as there is no direct link for the parent
+    icon: 'tiktok',
+    isActive: true,
+
+    items: [
+      {
+        title: 'Quản lý đơn tiktok',
+        url: '/dashboard/tiktokView/order',
+        icon: 'userPen'
+      },
+      {
+        title: 'Quản lý máy chủ tiktok',
+        url: '/dashboard/tiktokView/service',
+        icon: 'userPen'
+      },
+      {
+        title: 'Quản lý thời gian tiktok',
+        url: '/dashboard/tiktokView/serviceTime',
+        icon: 'userPen'
+      }
+    ]
+  },
+  {
     title: 'Youtube',
     url: '#', // Placeholder as there is no direct link for the parent
     icon: 'youtube',
@@ -164,6 +212,30 @@ export const navItems: NavItem[] = [
       {
         title: 'Quản lý thời gian youtube',
         url: '/dashboard/youtube/serviceTime',
+        icon: 'userPen'
+      }
+    ]
+  },
+  {
+    title: 'Youtube - View',
+    url: '#', // Placeholder as there is no direct link for the parent
+    icon: 'youtube',
+    isActive: true,
+
+    items: [
+      {
+        title: 'Quản lý đơn youtube',
+        url: '/dashboard/youtubeView/order',
+        icon: 'userPen'
+      },
+      {
+        title: 'Quản lý máy chủ youtube',
+        url: '/dashboard/youtubeView/service',
+        icon: 'userPen'
+      },
+      {
+        title: 'Quản lý thời gian youtube',
+        url: '/dashboard/youtubeView/serviceTime',
         icon: 'userPen'
       }
     ]
@@ -212,6 +284,30 @@ export const navItems: NavItem[] = [
       {
         title: 'Quản lý thời gian instagram',
         url: '/dashboard/instagram/serviceTime',
+        icon: 'userPen'
+      }
+    ]
+  },
+  {
+    title: 'Instagram - View',
+    url: '#',
+    icon: 'instagram',
+    isActive: true,
+
+    items: [
+      {
+        title: 'Quản lý đơn instagram',
+        url: '/dashboard/instagramView/order',
+        icon: 'userPen'
+      },
+      {
+        title: 'Quản lý máy chủ instagram',
+        url: '/dashboard/instagramView/service',
+        icon: 'userPen'
+      },
+      {
+        title: 'Quản lý thời gian instagram',
+        url: '/dashboard/instagramView/serviceTime',
         icon: 'userPen'
       }
     ]
