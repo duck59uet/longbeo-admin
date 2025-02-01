@@ -118,47 +118,6 @@ export default function AppSidebar() {
           </ScrollArea>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <div className="flex flex-col items-start bottom-0 gap-3 py-4">
-          {/* Zalo */}
-          <a
-            href="https://zalo.me/g/azthjg861"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 shadow-lg"
-          >
-            <img
-              src="/zalo.webp" // Thay thế bằng đường dẫn icon Zalo
-              alt="Zalo"
-              className="h-6 w-6"
-            />
-          </a>
-          {/* Messenger */}
-          <a
-            href="https://m.me/YOUR_MESSENGER_LINK"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 shadow-lg"
-          >
-            <img
-              src="/messenger.png" // Thay thế bằng đường dẫn icon Messenger
-              alt="Messenger"
-              className="h-6 w-6"
-            />
-          </a>
-          {/* Call */}
-          <a
-            href="tel:+0976836223"
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500 shadow-lg"
-          >
-            <img
-              src="/phone.png" // Thay thế bằng đường dẫn icon Phone
-              alt="Call"
-              className="h-6 w-6"
-            />
-          </a>
-        </div>
-      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );
