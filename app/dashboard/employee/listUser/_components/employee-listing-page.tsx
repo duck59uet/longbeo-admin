@@ -3,10 +3,11 @@
 import PageContainer from '@/components/layout/page-container';
 import { Card } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
-import { getUsersInfo } from '@/services/user';
+import { exportUserList, getUsersInfo } from '@/services/user';
 import { DataTable as EmployeeTable } from '@/components/ui/table/data-table';
 import { columns } from './columns';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 export default function EmployeePage() {
   const [data, setData] = useState([]);
@@ -41,14 +42,25 @@ export default function EmployeePage() {
     setUsername(e.target.value);
   };
 
+  const handleExport = async () => {
+    try {
+      await exportUserList();
+    } catch (error) {
+      console.error('Error exporting data:', error);
+    }
+  }
+
   return (
     <PageContainer scrollable>
       <div className="space-y-2">
-        <Input
-          placeholder={`Search by username`}
-          onChange={handleSearchChange}
-          className={'w-full md:max-w-sm'}
-        />
+        <div className="flex items-center">
+          <Input
+            placeholder={`Search by username`}
+            onChange={handleSearchChange}
+            className={'w-full md:max-w-sm'}
+          />
+          <Button className='ml-2 px-3 py-2' onClick={() => handleExport()}>Danh sách</Button>
+        </div>
         <div className="grid gap-4">
           <Card>
             <EmployeeTable
