@@ -20,8 +20,8 @@ export const columns: ColumnDef<Employee>[] = [
     header: 'Ngày tạo'
   },
   {
-    accessorKey: 'topup_sender',
-    header: 'Người gửi'
+    accessorKey: 'topup_amount',
+    header: 'Số tiền'
   },
   {
     accessorKey: 'content',
