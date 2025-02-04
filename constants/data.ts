@@ -77,7 +77,7 @@ export const navItems: NavItem[] = [
     title: 'Quản lý tài khoản',
     url: '#',
     icon: 'user',
-    isActive: false,
+    isActive: true,
     items: [
       {
         title: 'Tài khoản admin',
@@ -100,7 +100,7 @@ export const navItems: NavItem[] = [
     title: 'Facebook',
     url: '#', // Placeholder as there is no direct link for the parent
     icon: 'facebook',
-    isActive: false,
+    isActive: true,
 
     items: [
       {
@@ -124,7 +124,7 @@ export const navItems: NavItem[] = [
     title: 'Facebook - View Live',
     url: '#', // Placeholder as there is no direct link for the parent
     icon: 'facebook',
-    isActive: false,
+    isActive: true,
 
     items: [
       {
@@ -148,7 +148,7 @@ export const navItems: NavItem[] = [
     title: 'Facebook - View Reel',
     url: '#', // Placeholder as there is no direct link for the parent
     icon: 'facebook',
-    isActive: false,
+    isActive: true,
 
     items: [
       {
@@ -172,7 +172,7 @@ export const navItems: NavItem[] = [
     title: 'Tiktok',
     url: '#', // Placeholder as there is no direct link for the parent
     icon: 'tiktok',
-    isActive: false,
+    isActive: true,
 
     items: [
       {
@@ -196,7 +196,7 @@ export const navItems: NavItem[] = [
     title: 'Tiktok - View',
     url: '#', // Placeholder as there is no direct link for the parent
     icon: 'tiktok',
-    isActive: false,
+    isActive: true,
 
     items: [
       {
@@ -220,7 +220,7 @@ export const navItems: NavItem[] = [
     title: 'Youtube',
     url: '#', // Placeholder as there is no direct link for the parent
     icon: 'youtube',
-    isActive: false,
+    isActive: true,
 
     items: [
       {
@@ -244,7 +244,7 @@ export const navItems: NavItem[] = [
     title: 'Youtube - View',
     url: '#', // Placeholder as there is no direct link for the parent
     icon: 'youtube',
-    isActive: false,
+    isActive: true,
 
     items: [
       {
@@ -268,7 +268,7 @@ export const navItems: NavItem[] = [
     title: 'Shopee',
     url: '#',
     icon: 'shopee',
-    isActive: false,
+    isActive: true,
 
     items: [
       {
@@ -292,7 +292,7 @@ export const navItems: NavItem[] = [
     title: 'Instagram',
     url: '#',
     icon: 'instagram',
-    isActive: false,
+    isActive: true,
 
     items: [
       {
@@ -316,7 +316,7 @@ export const navItems: NavItem[] = [
     title: 'Instagram - View',
     url: '#',
     icon: 'instagram',
-    isActive: false,
+    isActive: true,
 
     items: [
       {
