@@ -53,7 +53,7 @@ export default function ServiceTimeHistoryPage() {
   return (
     <PageContainer scrollable>
       <div className="space-y-2">
-        <div className="flex items-start justify-between">
+        <div className="flex items-start gap-4">
           <DataTableFilterBox
             filterKey="serviceId"
             title="Máy chủ"

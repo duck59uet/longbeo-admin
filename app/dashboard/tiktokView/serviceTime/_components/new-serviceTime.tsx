@@ -50,7 +50,7 @@ export default function NewServiceTimeDialog() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       serviceId: '',
-      time: '',
+      time: '1',
       sourceServiceId: ''
     }
   });
@@ -73,7 +73,7 @@ export default function NewServiceTimeDialog() {
     try {
       const response = await createServiceTime({
         serviceId: Number(values.serviceId),
-        time: values.time,
+        time: '1',
         sourceServiceId: values.sourceServiceId
       });
 
@@ -135,7 +135,7 @@ export default function NewServiceTimeDialog() {
                   </FormItem>
                 )}
               />
-              <FormField
+              {/* <FormField
                 control={form.control}
                 name="time"
                 render={({ field }) => (
@@ -147,7 +147,7 @@ export default function NewServiceTimeDialog() {
                     <FormMessage />
                   </FormItem>
                 )}
-              />
+              /> */}
               <FormField
                 control={form.control}
                 name="sourceServiceId"
