@@ -140,9 +140,9 @@ export default function NewServiceTimeDialog() {
                 name="time"
                 render={({ field }) => (
                   <FormItem className="flex items-center space-x-3">
-                    <FormLabel className="w-1/3 text-lg">Số phút</FormLabel>
+                    <FormLabel className="w-1/3 text-lg">Số giây</FormLabel>
                     <FormControl className="w-2/3">
-                      <Input type="number" placeholder="Số phút" {...field} />
+                      <Input type="number" placeholder="Số giây" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
