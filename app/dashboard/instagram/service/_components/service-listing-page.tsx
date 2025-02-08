@@ -9,6 +9,7 @@ import { getServiceInfo } from '@/services/service';
 import { toast } from 'sonner';
 
 export default function ServiceHistoryPage() {
+  const CATEGORY = 4;
   const [data, setData] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [page, setPage] = useState(1);
@@ -16,7 +17,7 @@ export default function ServiceHistoryPage() {
 
   async function fetchServiceInfo() {
     try {
-      const data = await getServiceInfo(4);
+      const data = await getServiceInfo(CATEGORY);
       setData(data.Data);
     } catch (error) {
       toast.error('Không thể tải thông tin dịch vụ. Vui lòng thử lại sau.');

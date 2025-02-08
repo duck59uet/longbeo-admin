@@ -43,6 +43,7 @@ const formSchema = z.object({
 type BuyServiceFormValues = z.infer<typeof formSchema>;
 
 export default function NewServiceTimeDialog() {
+  const CATEGORY = 4;
   const [serviceData, setServiceData] = useState([]);
 
   const form = useForm<BuyServiceFormValues>({
@@ -57,7 +58,7 @@ export default function NewServiceTimeDialog() {
   useEffect(() => {
     const fetchServiceData = async () => {
       try {
-        const response = await getServiceInfo(4);
+        const response = await getServiceInfo(CATEGORY);
         if (response.Data) {
           setServiceData(response.Data);
         }
