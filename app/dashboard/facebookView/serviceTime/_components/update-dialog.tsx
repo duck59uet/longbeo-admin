@@ -23,14 +23,14 @@ export const UpdateServiceTimeModal: React.FC<AlertModalProps> = ({
   data,
 }) => {
   const [isMounted, setIsMounted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', time: '', sourceServiceId: '' });
+  const [formData, setFormData] = useState({ name: '', time: '1', sourceServiceId: '' });
 
   useEffect(() => {
     setIsMounted(true);
     if (data) {
       setFormData({
         name: data.serviceName || '', 
-        time: data.time || '',
+        time: data.time || '1',
         sourceServiceId: data.sourceServiceId || '',
       });
     }
@@ -44,14 +44,14 @@ export const UpdateServiceTimeModal: React.FC<AlertModalProps> = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!formData.time || !formData.sourceServiceId) {
+    if (!formData.sourceServiceId) {
       toast.error('Vui lòng nhập đầy đủ thông tin.');
       return;
     }
 
     try {
       const result = await updateServiceTime(data.id, {
-        time: formData.time,
+        time: '1',
         sourceServiceId: formData.sourceServiceId,
       });
 
@@ -89,18 +89,6 @@ export const UpdateServiceTimeModal: React.FC<AlertModalProps> = ({
             className="col-span-4"
             value={formData.name || ''} 
             disabled 
-          />
-        </div>
-        <div className="grid grid-cols-4 items-center gap-4">
-          <Input
-            id="time"
-            name="time"
-            placeholder="Thời gian"
-            className="col-span-4"
-            value={formData.time}
-            onChange={(e) =>
-              setFormData({ ...formData, time: e.target.value })
-            }
           />
         </div>
         <div className="grid grid-cols-4 items-center gap-4">
