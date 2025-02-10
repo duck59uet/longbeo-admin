@@ -63,7 +63,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Edit className="mr-2 h-4 w-4" /> Chỉnh sửa
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setOpen(true)}>
+          <DropdownMenuItem onClick={() => setOpenChangeStatus(true)}>
             <Edit className="mr-2 h-4 w-4" /> Cập nhật trạng thái
           </DropdownMenuItem>
         </DropdownMenuContent>
