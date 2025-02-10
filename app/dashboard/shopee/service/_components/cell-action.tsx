@@ -37,12 +37,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   return (
     <>
-    <ConfirmModal
-            isOpen={openChangeStatus}
-            onClose={() => setOpenChangeStatus(false)}
-            onConfirm={onConfirmChangeStatus}
-            loading={loading}
-          />
+      <ConfirmModal
+        isOpen={openChangeStatus}
+        onClose={() => setOpenChangeStatus(false)}
+        onConfirm={onConfirmChangeStatus}
+        loading={loading}
+      />
       <UpdateServiceModal
         isOpen={open}
         onClose={() => setOpen(false)}
@@ -60,10 +60,11 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Tháo tác</DropdownMenuLabel>
 
-          <DropdownMenuItem
-            onClick={() => setOpen(true)}
-          >
+          <DropdownMenuItem onClick={() => setOpen(true)}>
             <Edit className="mr-2 h-4 w-4" /> Chỉnh sửa
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setOpenChangeStatus(true)}>
+            <Edit className="mr-2 h-4 w-4" /> Cập nhật trạng thái
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
