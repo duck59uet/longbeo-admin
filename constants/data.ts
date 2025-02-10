@@ -25,13 +25,13 @@ export type BuffHistory = {
 };
 
 export type Employee = {
-  user_id: string;
+  id: string;
   username: string;
   fullname: string;
 };
 
 export type Admin = {
-  id: string;
+  user_id: string;
   username: string;
   fullname: string;
 };

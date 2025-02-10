@@ -7,7 +7,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import { Employee } from '@/constants/data';
+import { Admin } from '@/constants/data';
 import { Edit, MoreHorizontal, Trash } from 'lucide-react';
 import { useState } from 'react';
 import { TopupModal } from './top-up-dialog';
@@ -16,7 +16,7 @@ import { deleteUser } from '@/services/users';
 import { toast } from 'sonner';
 
 interface CellActionProps {
-  data: Employee;
+  data: Admin;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {

@@ -1,9 +1,9 @@
 'use client';
-import { Admin } from '@/constants/data';
+import { Employee } from '@/constants/data';
 import { ColumnDef } from '@tanstack/react-table';
 import { CellAction } from './cell-action';
 
-export const columns: ColumnDef<Admin>[] = [
+export const columns: ColumnDef<Employee>[] = [
   {
     accessorKey: 'username',
     header: 'Tên tài khoản'
