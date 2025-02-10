@@ -1,6 +1,6 @@
 'use client';
 
-import { Employee } from '@/constants/data';
+import { Admin } from '@/constants/data';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Table,
@@ -16,7 +16,7 @@ import { columns } from './columns';
 export default function EmployeeTable({
   data,
 }: {
-  data: Employee[];
+  data: Admin[];
 }) {
   const table = useReactTable({
     data,
