@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger
@@ -20,7 +19,6 @@ import {
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
-import { createAdmin } from '@/services/admin';
 import { getServiceInfo } from '@/services/service';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -51,7 +49,7 @@ export default function NewServiceTimeDialog() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       serviceId: '',
-      time: '',
+      time: '1',
       sourceServiceId: ''
     }
   });
@@ -74,7 +72,7 @@ export default function NewServiceTimeDialog() {
     try {
       const response = await createServiceTime({
         serviceId: Number(values.serviceId),
-        time: values.time,
+        time: '1',
         sourceServiceId: values.sourceServiceId
       });
 
@@ -131,19 +129,6 @@ export default function NewServiceTimeDialog() {
                           ))}
                         </SelectContent>
                       </Select>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="time"
-                render={({ field }) => (
-                  <FormItem className="flex items-center space-x-3">
-                    <FormLabel className="w-1/3 text-lg">Số phút</FormLabel>
-                    <FormControl className="w-2/3">
-                      <Input type="number" placeholder="Số phút" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

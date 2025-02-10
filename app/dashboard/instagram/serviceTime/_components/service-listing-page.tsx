@@ -11,6 +11,7 @@ import { getServiceTimeInfo } from '@/services/serviceTime';
 import { DataTableFilterBox } from '@/components/ui/table/data-table-filter-box';
 
 export default function ServiceTimeHistoryPage() {
+  const CATEGORY = 4;
   const [data, setData] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [page, setPage] = useState(1);
@@ -29,7 +30,7 @@ export default function ServiceTimeHistoryPage() {
   ) {
     try {
       const data = await getServiceTimeInfo({
-        categoryId: 1,
+        categoryId: CATEGORY,
         page,
         limit,
         serviceId: serviceId || undefined

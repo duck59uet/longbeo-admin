@@ -9,10 +9,6 @@ export const columns: ColumnDef<Employee>[] = [
     header: 'Tên dịch vụ'
   },
   {
-    accessorKey: 'time',
-    header: 'Thời gian tương ứng'
-  },
-  {
     accessorKey: 'sourceServiceId',
     header: 'ID nguồn'
   },

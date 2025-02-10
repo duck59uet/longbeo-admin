@@ -8,10 +8,10 @@ export const columns: ColumnDef<Employee>[] = [
     accessorKey: 'serviceName',
     header: 'Tên dịch vụ'
   },
-  {
-    accessorKey: 'time',
-    header: 'Thời gian tương ứng'
-  },
+  // {
+  //   accessorKey: 'time',
+  //   header: 'Số giây'
+  // },
   {
     accessorKey: 'sourceServiceId',
     header: 'ID nguồn'

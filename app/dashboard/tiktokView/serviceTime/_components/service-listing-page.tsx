@@ -8,6 +8,7 @@ import { columns } from './columns';
 import { toast } from 'sonner';
 import NewServiceTimeDialog from './new-serviceTime';
 import { getServiceTimeInfo } from '@/services/serviceTime';
+import { DataTableFilterBox } from '@/components/ui/table/data-table-filter-box';
 
 export default function ServiceTimeHistoryPage() {
   const CATEGORY_ID = 10;
@@ -15,10 +16,20 @@ export default function ServiceTimeHistoryPage() {
   const [totalItems, setTotalItems] = useState(0);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
+  const [serviceId, setServiceId] = useState<number | null>(null);
+  const serviceOptions = [
+    { value: '24', label: 'Máy chủ 1' },
+    { value: '25', label: 'Máy chủ 2' },
+  ];
 
-  async function fetchServiceInfo(page: number, limit: number) {
+  async function fetchServiceInfo(page: number, limit: number, serviceId: number | null) {
     try {
-      const data = await getServiceTimeInfo({ categoryId: CATEGORY_ID, page, limit });
+      const data = await getServiceTimeInfo({
+        categoryId: CATEGORY_ID,
+        page,
+        limit,
+        serviceId: serviceId || undefined
+      });
       setData(data.Data[1]);
       setTotalItems(data.Data[0]);
     } catch (error) {
@@ -27,8 +38,8 @@ export default function ServiceTimeHistoryPage() {
   }
 
   useEffect(() => {
-    fetchServiceInfo(page, limit);
-  }, [page, limit]);
+    fetchServiceInfo(page, limit, Number(serviceId));
+  }, [page, limit, serviceId]);
 
   const handlePageChange = (newPage: any) => {
     setPage(newPage);
@@ -42,7 +53,17 @@ export default function ServiceTimeHistoryPage() {
   return (
     <PageContainer scrollable>
       <div className="space-y-2">
-        <div className="flex items-start justify-between">
+        <div className="flex items-start gap-4">
+          <DataTableFilterBox
+            filterKey="serviceId"
+            title="Máy chủ"
+            options={serviceOptions}
+            setFilterValue={(value) => {
+              setServiceId(value as number | null);
+              return Promise.resolve(new URLSearchParams());
+            }}
+            filterValue={serviceId?.toString() || ''}
+          />
           <NewServiceTimeDialog />
         </div>
         <Card>

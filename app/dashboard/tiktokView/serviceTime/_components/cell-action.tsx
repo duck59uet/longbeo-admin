@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { Employee } from '@/constants/data';
-import { Edit, MoreHorizontal } from 'lucide-react';
+import { Edit, MoreHorizontal, Trash } from 'lucide-react';
 import { useState } from 'react';
 import { UpdateServiceTimeModal } from './update-dialog';
 import { deleteServiceTime } from '@/services/serviceTime';
@@ -62,6 +62,9 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Edit className="mr-2 h-4 w-4" /> Chỉnh sửa
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setOpenDelete(true)}>
+            <Trash className="mr-2 h-4 w-4" /> Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
