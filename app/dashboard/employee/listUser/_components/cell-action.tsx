@@ -9,9 +9,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Employee } from '@/constants/data';
 import { Edit, MoreHorizontal, Trash } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { TopupModal } from './top-up-dialog';
+import { ConfirmModal } from './confirm-modal';
+import { deleteUser } from '@/services/users';
+import { toast } from 'sonner';
 
 interface CellActionProps {
   data: Employee;
@@ -20,9 +22,17 @@ interface CellActionProps {
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const router = useRouter();
+  const [openDelete, setOpenDelete] = useState(false);
 
   const onConfirm = async () => {};
+
+  const onConfirmDelete = async () => {
+    const result = await deleteUser(data.user_id);
+    if (result.ErrorCode === 'SUCCESSFUL') {
+      toast.success('Xóa thành công');
+      window.location.reload();
+    }
+  };
 
   return (
     <>
@@ -32,6 +42,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         onConfirm={onConfirm}
         loading={loading}
         data={data}
+      />
+      <ConfirmModal
+        isOpen={openDelete}
+        onClose={() => setOpenDelete(false)}
+        onConfirm={onConfirmDelete}
+        loading={loading}
       />
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
@@ -43,12 +59,10 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
-          <DropdownMenuItem
-            onClick={() => setOpen(true)}
-          >
+          <DropdownMenuItem onClick={() => setOpen(true)}>
             <Edit className="mr-2 h-4 w-4" /> Nạp tiền
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setOpen(true)}>
+          <DropdownMenuItem onClick={() => setOpenDelete(true)}>
             <Trash className="mr-2 h-4 w-4" /> Delete
           </DropdownMenuItem>
         </DropdownMenuContent>

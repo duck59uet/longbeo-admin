@@ -22,3 +22,14 @@ export const topupUser = async (data: {
     throw new Error('Failed to topup user');
   }
 };
+
+export const deleteUser = async (id: string): Promise<any> => {
+  try {
+    console.log('id', id);
+    const response = await authInstance.post(`/user/delete`, { id });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to delete user');
+  }
+};
