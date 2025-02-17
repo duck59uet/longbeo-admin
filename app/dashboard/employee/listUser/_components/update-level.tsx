@@ -3,8 +3,15 @@ import { useEffect, useState } from 'react';
 import { Modal } from '@/components/ui/modal';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { topupUser } from '@/services/users';
+import { updateUserLevel } from '@/services/users';
 import { toast } from 'sonner';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
 
 interface AlertModalProps {
   isOpen: boolean;
@@ -14,12 +21,13 @@ interface AlertModalProps {
   data: any;
 }
 
-export const TopupModal: React.FC<AlertModalProps> = ({
+export const UpdateUserLevelModal: React.FC<AlertModalProps> = ({
   isOpen,
   onClose,
   data
 }) => {
   const [isMounted, setIsMounted] = useState(false);
+  const [selectedLevel, setSelectedLevel] = useState<string>(data?.user_level?.toString() || '');
 
   useEffect(() => {
     setIsMounted(true);
@@ -32,28 +40,25 @@ export const TopupModal: React.FC<AlertModalProps> = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    const { amount, sender } = Object.fromEntries(formData);
+    if (!selectedLevel) {
+      toast.error('Vui lòng chọn cấp bậc thành viên');
+      return;
+    }
 
-    if (typeof amount !== 'string' || typeof sender !== 'string') return;
-
-    const result = await topupUser({
-      user_id: data.user_id,
-      amount: Number(amount),
-      sender: sender
+    const result = await updateUserLevel({
+      id: data.user_id,
+      level: Number(selectedLevel)
     });
 
     if (result.ErrorCode === 'SUCCESSFUL') {
-      toast.success('Nạp tiền thành công');
-      // onClose();
+      toast.success('Thay đổi cấp bậc thành viên thành công');
       window.location.reload();
     }
   };
 
   return (
     <Modal
-      title="Nạp tiền tài khoản"
+      title="Cấp bậc thành viên"
       description=""
       isOpen={isOpen}
       onClose={onClose}
@@ -70,20 +75,27 @@ export const TopupModal: React.FC<AlertModalProps> = ({
           />
         </div>
         <div className="grid grid-cols-4 items-center gap-4">
-          <Input
-            id="amount"
-            name="amount"
-            placeholder="Số tiền"
-            className="col-span-4"
-          />
-        </div>
-        <div className="grid grid-cols-4 items-center gap-4">
-          <Input
-            id="sender"
-            name="sender"
-            placeholder="Người chuyển"
-            className="col-span-4"
-          />
+          <div className="col-span-4">
+            <Select
+              onValueChange={(value) => setSelectedLevel(value)}
+              value={selectedLevel}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Dịch vụ" />
+              </SelectTrigger>
+              <SelectContent className="w-full">
+                <SelectItem value="1" key="1">
+                  Thành viên
+                </SelectItem>
+                <SelectItem value="2" key="2">
+                  Cộng tác viên
+                </SelectItem>
+                <SelectItem value="3" key="3">
+                  Đại lý
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
         <Button
           type="submit"
@@ -92,7 +104,7 @@ export const TopupModal: React.FC<AlertModalProps> = ({
             handleSubmit;
           }}
         >
-          Nạp tiền
+          Cập nhật
         </Button>
       </form>
     </Modal>

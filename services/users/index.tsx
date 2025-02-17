@@ -33,3 +33,15 @@ export const deleteUser = async (id: string): Promise<any> => {
     throw new Error('Failed to delete user');
   }
 };
+
+export const updateUserLevel = async (data: {
+  id: string;
+  level: number;
+}): Promise<any> => {
+  try {
+    const response = await authInstance.post('/user/update-level', data);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to topup user');
+  }
+};
