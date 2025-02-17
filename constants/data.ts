@@ -99,6 +99,11 @@ export const navItems: NavItem[] = [
         title: 'Lịch sử nạp tiền',
         url: '/dashboard/employee/topupHistory',
         icon: 'userPen'
+      },
+      {
+        title: 'Cấp bậc',
+        url: '/dashboard/employee/userLevel',
+        icon: 'userPen'
       }
     ]
   },
