@@ -29,6 +29,10 @@ export const columns: ColumnDef<Admin>[] = [
     header: 'Cấp bậc'
   },
   {
+    accessorKey: 'user_referUser',
+    header: 'Người giới thiệu'
+  },
+  {
     id: 'actions',
     cell: ({ row }) => <CellAction data={row.original} />
   }
