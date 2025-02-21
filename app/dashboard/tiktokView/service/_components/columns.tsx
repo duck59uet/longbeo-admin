@@ -9,8 +9,16 @@ export const columns: ColumnDef<Service>[] = [
     header: 'Tên máy chủ'
   },
   {
+    accessorKey: 'enName',
+    header: 'Tên tiếng anh'
+  },
+  {
     accessorKey: 'price',
     header: 'Giá tiền'
+  },
+  {
+    accessorKey: 'enPrice',
+    header: 'Giá tiền tiếng anh'
   },
   {
     accessorKey: 'sourceAddress',
