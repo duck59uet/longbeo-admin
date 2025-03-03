@@ -18,7 +18,7 @@ export default function TopupHistoryPage() {
     try {
       const result = await getTopupHistory({ page, limit });
       setData(result.Data[1]);
-      setTotalItems(result.total[0]);
+      setTotalItems(result.Data[0]);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
