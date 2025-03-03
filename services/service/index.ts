@@ -11,7 +11,9 @@ export const getServiceInfo = async (seriveId: number): Promise<any> => {
 
 export const updateService = async (id: number, data: {
   name: string;
+  enName: string;
   price: number;
+  enPrice: number;
   sourceAddress: string;
   rate: number;
   apiKey: string;

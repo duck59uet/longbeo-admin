@@ -22,14 +22,28 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
   data
 }) => {
   const [isMounted, setIsMounted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', price: '', 
-     sourceAddress: '', rate: '', apiKey: '' });
+  const [formData, setFormData] = useState({
+    name: '',
+    price: '',
+    sourceAddress: '',
+    rate: '',
+    apiKey: '',
+    enName: '',
+    enPrice: ''
+  });
 
   useEffect(() => {
     setIsMounted(true);
     if (data) {
-      setFormData({ name: data.name, price: data.price, sourceAddress: data.sourceAddress, 
-        rate: data.rate, apiKey: data.apiKey });
+      setFormData({
+        name: data.name,
+        price: data.price,
+        sourceAddress: data.sourceAddress,
+        rate: data.rate,
+        apiKey: data.apiKey,
+        enName: data.enName,
+        enPrice: data.enPrice
+      });
     }
   }, [data]);
 
@@ -38,41 +52,49 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    
     e.preventDefault();
 
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const { name, price, sourceAddress, sourceServiceId, rate, apiKey } =
-      Object.fromEntries(formData);
+    const {
+      name,
+      enName,
+      price,
+      enPrice,
+      sourceAddress,
+      rate,
+      apiKey,
+    } = Object.fromEntries(formData);
 
     if (
       typeof name !== 'string' ||
+      typeof enName !== 'string' ||
       typeof price !== 'string' ||
+      typeof enPrice !== 'string' ||
       typeof sourceAddress !== 'string' ||
       typeof rate !== 'string' ||
       typeof apiKey !== 'string'
     )
       return;
 
-      
-    const result = await updateService(
-      data.id,
-      {
-        name,
-        price: Number(price),
-        sourceAddress,
-        rate: Number(rate),
-        apiKey
-      },
-    );
+    const result = await updateService(data.id, {
+      name,
+      enName,
+      price: Number(price),
+      enPrice: Number(enPrice),
+      sourceAddress,
+      rate: Number(rate),
+      apiKey
+    });
 
-    if(result.ErrorCode === "SUCCESSFUL") {
+    if (result.ErrorCode === 'SUCCESSFUL') {
       toast.success('Chỉnh sửa thành công');
       onClose();
       window.location.reload();
     } else {
-      toast.error('Trong quá trình chỉnh sửa đã xảy ra lỗi. Vui lòng thử lại sau.');
+      toast.error(
+        'Trong quá trình chỉnh sửa đã xảy ra lỗi. Vui lòng thử lại sau.'
+      );
     }
   };
 
@@ -83,7 +105,11 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
       isOpen={isOpen}
       onClose={onClose}
     >
-      <form id="service-form" className="grid gap-4 py-4" onSubmit={handleSubmit}>
+      <form
+        id="service-form"
+        className="grid gap-4 py-4"
+        onSubmit={handleSubmit}
+      >
         <div className="grid grid-cols-4 items-center gap-4">
           <Input
             id="name"
@@ -96,12 +122,36 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
         </div>
         <div className="grid grid-cols-4 items-center gap-4">
           <Input
+            id="enName"
+            name="enName"
+            placeholder="Tên máy chủ tiếng anh"
+            className="col-span-4"
+            value={formData.enName}
+            onChange={(e) => setFormData({ ...formData, enName: e.target.value })}
+          />
+        </div>
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Input
             id="price"
             name="price"
             placeholder="Giá tiền"
             className="col-span-4"
             value={formData.price}
-            onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, price: e.target.value })
+            }
+          />
+        </div>
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Input
+            id="enPrice"
+            name="enPrice"
+            placeholder="Giá tiền"
+            className="col-span-4"
+            value={formData.enPrice}
+            onChange={(e) =>
+              setFormData({ ...formData, enPrice: e.target.value })
+            }
           />
         </div>
         <div className="grid grid-cols-4 items-center gap-4">
@@ -111,7 +161,9 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
             placeholder="Nguồn"
             className="col-span-4"
             value={formData.sourceAddress}
-            onChange={(e) => setFormData({ ...formData, sourceAddress: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, sourceAddress: e.target.value })
+            }
           />
         </div>
         <div className="grid grid-cols-4 items-center gap-4">
@@ -131,13 +183,17 @@ export const UpdateServiceModal: React.FC<AlertModalProps> = ({
             placeholder="Key"
             className="col-span-4"
             value={formData.apiKey}
-            onChange={(e) => setFormData({ ...formData, apiKey: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, apiKey: e.target.value })
+            }
           />
         </div>
         <Button
           type="submit"
           className="w-full bg-[#4680FF] text-white hover:bg-[#2E5BFF]"
-          onClick={() => {handleSubmit}}
+          onClick={() => {
+            handleSubmit;
+          }}
         >
           Chỉnh sửa
         </Button>

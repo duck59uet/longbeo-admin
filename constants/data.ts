@@ -101,6 +101,11 @@ export const navItems: NavItem[] = [
         icon: 'userPen'
       },
       {
+        title: 'Lịch sử đơn hàng',
+        url: '/dashboard/employee/orderHistory',
+        icon: 'userPen'
+      },
+      {
         title: 'Cấp bậc',
         url: '/dashboard/employee/userLevel',
         icon: 'userPen'
