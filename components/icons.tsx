@@ -32,7 +32,8 @@ import {
   Facebook,
   Youtube,
   UserX2Icon,
-  X
+  X,
+  Newspaper
 } from 'lucide-react';
 
 export type Icon = LucideIcon;
@@ -65,6 +66,7 @@ export const Icons = {
   pizza: Pizza,
   sun: SunMedium,
   facebook: Facebook,
+  news: Newspaper,
   youtube: Youtube,
   moon: Moon,
   laptop: Laptop,

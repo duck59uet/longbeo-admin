@@ -113,6 +113,13 @@ export const navItems: NavItem[] = [
     ]
   },
   {
+    title: 'Quản lý bài viết',
+    url: '/dashboard/product',
+    icon: 'news',
+    isActive: false,
+    items: [] // Empty array as there are no child items for Dashboard
+  },
+  {
     title: 'Facebook',
     url: '#', // Placeholder as there is no direct link for the parent
     icon: 'facebook',
