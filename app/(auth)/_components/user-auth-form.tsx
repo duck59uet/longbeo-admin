@@ -16,12 +16,11 @@ import { useEffect, useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
-import SignUpButton from './signup-button';
 import { Checkbox } from '@/components/ui/checkbox';
 
 const formSchema = z.object({
-  username: z.string({ message: 'Hãy nhập tên tài khoản' }),
-  password: z.string({ message: 'Hãy nhập mật khẩu' })
+  username: z.string({ description: 'Hãy nhập tên tài khoản' }),
+  password: z.string({ description: 'Hãy nhập mật khẩu' })
 });
 
 type UserFormValue = z.infer<typeof formSchema>;
