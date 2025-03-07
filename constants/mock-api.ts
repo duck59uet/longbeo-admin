@@ -185,6 +185,7 @@ fakeUsers.initialize();
 
 // Define the shape of Product data
 export type Product = {
+  avatar: string;
   content: string;
   title: string;
   created_at: string;

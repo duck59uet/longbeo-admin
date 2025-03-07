@@ -1,41 +1,27 @@
 'use client';
 import { Product } from '@/constants/data';
 import { ColumnDef } from '@tanstack/react-table';
-import Image from 'next/image';
 import { CellAction } from './cell-action';
 
 export const columns: ColumnDef<Product>[] = [
   {
-    accessorKey: 'photo_url',
-    header: 'IMAGE',
+    accessorKey: 'avatar',
+    header: 'Ảnh bìa',
     cell: ({ row }) => {
       return (
-        <div className='relative aspect-square'>
-          <Image
-            src={row.getValue('photo_url')}
-            alt={row.getValue('name')}
-            fill
-            className='rounded-lg'
+        <div className="relative w-32 h-32">
+          <img
+            src={row.getValue('avatar')}
+            alt={row.getValue('title')}
+            className="rounded-lg w-full h-auto object-cover"
           />
         </div>
       );
     }
   },
   {
-    accessorKey: 'name',
-    header: 'NAME'
-  },
-  {
-    accessorKey: 'category',
-    header: 'CATEGORY'
-  },
-  {
-    accessorKey: 'price',
-    header: 'PRICE'
-  },
-  {
-    accessorKey: 'description',
-    header: 'DESCRIPTION'
+    accessorKey: 'title',
+    header: 'Tiêu đề'
   },
 
   {
