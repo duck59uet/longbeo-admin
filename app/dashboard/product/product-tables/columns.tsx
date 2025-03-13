@@ -5,19 +5,8 @@ import { CellAction } from './cell-action';
 
 export const columns: ColumnDef<Product>[] = [
   {
-    accessorKey: 'avatar',
-    header: 'Ảnh bìa',
-    cell: ({ row }) => {
-      return (
-        <div className="relative w-32 h-32">
-          <img
-            src={row.getValue('avatar')}
-            alt={row.getValue('title')}
-            className="rounded-lg w-full h-auto object-cover"
-          />
-        </div>
-      );
-    }
+    accessorKey: 'categoryName',
+    header: 'Mục'
   },
   {
     accessorKey: 'title',
