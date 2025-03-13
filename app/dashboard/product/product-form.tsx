@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -13,42 +14,81 @@ import {
 import { Input } from '@/components/ui/input';
 import { Product } from '@/constants/mock-api';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import RichTextEditor from '@/components/RichTextEditor';
-import { createNews } from '@/services/news';
+import { createNews, getNewsById, updateNews } from '@/services/news';
 import { toast } from 'sonner';
 import { EditorState, convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 
-// Main form schema
+// Schema cho form
 const formSchema = z.object({
   avatar: z.string(),
   title: z.string().min(2, {
-    message: 'Product name must be at least 2 characters.'
+    message: 'Tiêu đề phải có ít nhất 2 ký tự.'
   }),
   content: z.string().min(10, {
-    message: 'Description must be at least 10 characters.'
+    message: 'Nội dung phải có ít nhất 10 ký tự.'
   })
 });
 
-export default function ProductForm({
-  initialData,
-  pageTitle
-}: {
-  initialData: Product | null;
-  pageTitle: string;
-}) {
-  // Nếu không có dữ liệu ban đầu, khởi tạo content với editor rỗng
-  const defaultContent = initialData?.content
-    ? (typeof initialData.content === 'string'
-        ? initialData.content
-        : JSON.stringify(initialData.content, null, 2))
-    : JSON.stringify(convertToRaw(EditorState.createEmpty().getCurrentContent()), null, 2);
+export default function ProductForm({ productId }: { productId: number }) {
+  // State lưu trữ dữ liệu ban đầu nhận từ API
+  const [initialData, setInitialData] = useState<Product | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  // Khi có productId (khác giá trị tạo mới) thì gọi API để lấy dữ liệu
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getNewsById(productId);
+        setInitialData(data.Data);
+      } catch (error) {
+        console.error('Error fetching news:', error);
+        toast.error('Không thể lấy thông tin tin tức.');
+      } finally {
+        setLoading(false);
+      }
+    }
+    // Giả sử productId = 0 nghĩa là "tạo mới"
+    if (productId) {
+      fetchData();
+    } else {
+      setLoading(false);
+    }
+  }, [productId]);
+
+  // Hàm lấy dữ liệu content ban đầu từ initialData
+  const getInitialContent = () => {
+    if (!initialData?.content) {
+      const emptyState = EditorState.createEmpty();
+      return JSON.stringify(convertToRaw(emptyState.getCurrentContent()));
+    }
+    if (typeof initialData.content === 'object') {
+      if (initialData.content.content) {
+        return initialData.content.content;
+      }
+      return JSON.stringify(initialData.content);
+    }
+    if (typeof initialData.content === 'string') {
+      try {
+        const parsed = JSON.parse(initialData.content);
+        if (parsed?.content) {
+          return parsed.content;
+        }
+        return initialData.content;
+      } catch {
+        return initialData.content;
+      }
+    }
+    return JSON.stringify(initialData.content);
+  };
 
   const defaultValues = {
     avatar: initialData?.avatar || '',
     title: initialData?.title || '',
-    content: defaultContent
+    content: getInitialContent()
   };
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -56,54 +96,63 @@ export default function ProductForm({
     defaultValues
   });
 
+  useEffect(() => {
+    if (initialData) {
+      form.reset({
+        avatar: initialData.avatar,
+        title: initialData.title,
+        content: getInitialContent()
+      });
+    }
+  }, [initialData]);
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      // Ở đây values.content đã là JSON string từ RichTextEditor
+      let htmlContent = values.content;
+      try {
+        const rawDraft = JSON.parse(values.content);
+        htmlContent = draftToHtml(rawDraft);
+      } catch (error) {
+        console.warn(
+          'Nội dung content không phải JSON, có thể đã là HTML:',
+          error
+        );
+      }
+      const contentObject = { content: htmlContent };
+
       const newsData = {
-        avatar: values.avatar,
+        id: initialData?.id || 0,
+        avatar: '',
         title: values.title,
-        content: JSON.parse(values.content), // parse lại thành object nếu API cần object
+        content: contentObject,
         status: true
       };
 
-      const result = await createNews(newsData);
-
+      const result = await updateNews(newsData);
       if (result.ErrorCode !== 'SUCCESSFUL') {
-        toast.error(result.Data?.Message || 'Thêm mới thất bại');
+        toast.error(result.Data?.Message || 'Cập nhật thất bại');
       } else {
-        toast.success('Thêm mới tin tức thành công');
-        form.reset();
+        toast.success('Cập nhật thông tin thành công');
+        // form.reset();
       }
     } catch (error) {
-      toast.error('Có lỗi xảy ra khi thêm tin tức');
+      toast.error('Có lỗi xảy ra khi thêm thông tin');
       console.error(error);
     }
   }
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <Card className="mx-auto w-full">
       <CardHeader>
         <CardTitle className="text-left text-2xl font-bold">
-          {pageTitle}
+          {initialData ? 'Cập nhật tin tức' : 'Thêm mới tin tức'}
         </CardTitle>
       </CardHeader>
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="avatar"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>Ảnh bìa</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Ảnh bìa" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
             <FormField
               control={form.control}
               name="title"
@@ -133,7 +182,7 @@ export default function ProductForm({
             />
 
             <Button type="submit" className="mt-3">
-              Thêm mới
+              {initialData ? 'Cập nhật' : 'Thêm mới'}
             </Button>
           </form>
         </Form>

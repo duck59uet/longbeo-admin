@@ -186,7 +186,9 @@ fakeUsers.initialize();
 // Define the shape of Product data
 export type Product = {
   avatar: string;
-  content: string;
+  content: {
+    content: string;
+  } | string; // Hỗ trợ cả hai dạng để tương thích ngược
   title: string;
   created_at: string;
   price: number;

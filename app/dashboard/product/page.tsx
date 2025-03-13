@@ -28,12 +28,6 @@ export default async function Page() {
             title='Tin bài'
             description=''
           />
-          <Link
-            href='/dashboard/product/new'
-            className={cn(buttonVariants(), 'text-xs md:text-sm')}
-          >
-            <Plus className='mr-2 h-4 w-4' /> Thêm mới
-          </Link>
         </div>
         <Separator />
         {/* <ProductTableAction /> */}

@@ -1,23 +1,24 @@
+// app/dashboard/product/[productId]/page.tsx
+import { getNewsById } from '@/services/news';
 import ProductForm from './product-form';
 
-type TProductViewPageProps = {
-  productId: string;
-};
-
 export default async function ProductViewPage({
-  productId
-}: TProductViewPageProps) {
+  params
+}: {
+  params: { productId: string };
+}) {
+  const { productId } = params;
   let product = null;
   let pageTitle = 'Tạo mới tin tức';
 
   if (productId !== 'new') {
-    // const data = await fakeProducts.getProductById(Number(productId));
-    // product = data.product as Product;
-    // if (!product) {
-    //   notFound();
-    // }
-    // pageTitle = `Thay đổi`;
+    pageTitle = 'Thay đổi';
   }
 
-  return <ProductForm initialData={product} pageTitle={pageTitle} />;
+  return (
+    <div>
+      {/* Truyền data đã fetch sẵn vào client component (nếu cần) */}
+      <ProductForm  productId={Number(productId)}/>
+    </div>
+  );
 }
