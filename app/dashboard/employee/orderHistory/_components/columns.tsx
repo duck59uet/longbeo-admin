@@ -32,6 +32,10 @@ export const columns: ColumnDef<Admin>[] = [
     header: 'Giảm giá'
   },
   {
+    accessorKey: 'start_count',
+    header: 'Số mắt bắt đầu'
+  },
+  {
     accessorKey: 'username',
     header: 'Tài khoản'
   },
