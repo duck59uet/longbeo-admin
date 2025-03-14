@@ -32,7 +32,7 @@ export const columns: ColumnDef<Admin>[] = [
     header: 'Giảm giá'
   },
   {
-    accessorKey: 'start_count',
+    accessorKey: 'startCount',
     header: 'Số mắt bắt đầu'
   },
   {
