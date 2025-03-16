@@ -1,0 +1,31 @@
+/* @/components/RichTextEditor.css */
+.quill-editor-container {
+  width: 100%;
+}
+
+.quill-editor-container .ql-container {
+  min-height: 200px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.quill-editor-container .ql-toolbar {
+  background-color: #f8f8f8;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.quill-editor-container .ql-container {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.quill-loading {
+  width: 100%;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f8f8;
+  border: 1px dashed #ddd;
+}

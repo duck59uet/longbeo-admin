@@ -17,10 +17,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import RichTextEditor from '@/components/RichTextEditor';
-import { createNews, getNewsById, updateNews } from '@/services/news';
+import { getNewsById, updateNews } from '@/services/news';
 import { toast } from 'sonner';
-import { EditorState, convertToRaw } from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
 
 // Schema cho form
 const formSchema = z.object({
@@ -62,15 +60,16 @@ export default function ProductForm({ productId }: { productId: number }) {
   // Hàm lấy dữ liệu content ban đầu từ initialData
   const getInitialContent = () => {
     if (!initialData?.content) {
-      const emptyState = EditorState.createEmpty();
-      return JSON.stringify(convertToRaw(emptyState.getCurrentContent()));
+      return '';
     }
+    
     if (typeof initialData.content === 'object') {
       if (initialData.content.content) {
         return initialData.content.content;
       }
       return JSON.stringify(initialData.content);
     }
+    
     if (typeof initialData.content === 'string') {
       try {
         const parsed = JSON.parse(initialData.content);
@@ -82,6 +81,7 @@ export default function ProductForm({ productId }: { productId: number }) {
         return initialData.content;
       }
     }
+    
     return JSON.stringify(initialData.content);
   };
 
@@ -99,30 +99,22 @@ export default function ProductForm({ productId }: { productId: number }) {
   useEffect(() => {
     if (initialData) {
       form.reset({
-        avatar: initialData.avatar,
-        title: initialData.title,
+        avatar: initialData.avatar || '',
+        title: initialData.title || '',
         content: getInitialContent()
       });
     }
-  }, [initialData]);
+  }, [initialData, form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      let htmlContent = values.content;
-      try {
-        const rawDraft = JSON.parse(values.content);
-        htmlContent = draftToHtml(rawDraft);
-      } catch (error) {
-        console.warn(
-          'Nội dung content không phải JSON, có thể đã là HTML:',
-          error
-        );
-      }
+      // CKEditor trả về HTML trực tiếp, không cần chuyển đổi
+      const htmlContent = values.content;
       const contentObject = { content: htmlContent };
 
       const newsData = {
         id: initialData?.id || 0,
-        avatar: '',
+        avatar: values.avatar || '',
         title: values.title,
         content: contentObject,
         status: true
@@ -133,7 +125,6 @@ export default function ProductForm({ productId }: { productId: number }) {
         toast.error(result.Data?.Message || 'Cập nhật thất bại');
       } else {
         toast.success('Cập nhật thông tin thành công');
-        // form.reset();
       }
     } catch (error) {
       toast.error('Có lỗi xảy ra khi thêm thông tin');
@@ -174,7 +165,11 @@ export default function ProductForm({ productId }: { productId: number }) {
                 <FormItem>
                   <FormLabel>Nội dung (Rich Text)</FormLabel>
                   <FormControl>
-                    <RichTextEditor value={value} onChange={onChange} />
+                    <RichTextEditor 
+                      value={value} 
+                      onChange={onChange} 
+                      placeholder="Nhập nội dung bài viết..."
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
