@@ -1,31 +1,113 @@
 /* @/components/RichTextEditor.css */
+
 .quill-editor-container {
-  width: 100%;
+  margin-bottom: 20px;
 }
 
-.quill-editor-container .ql-container {
+.quill-loading {
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  text-align: center;
+  color: #666;
+}
+
+/* Tùy chỉnh kích thước của editor */
+.quill-editor-container .ql-editor {
   min-height: 200px;
-  font-size: 14px;
-  line-height: 1.6;
+  max-height: 500px;
+  overflow-y: auto;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
+/* Tùy chỉnh các nút trong toolbar */
 .quill-editor-container .ql-toolbar {
-  background-color: #f8f8f8;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
 }
 
 .quill-editor-container .ql-container {
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
+  border: 1px solid #ddd;
+  border-top: none;
 }
 
-.quill-loading {
-  width: 100%;
-  min-height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f8f8f8;
-  border: 1px dashed #ddd;
+/* Tùy chỉnh hiển thị của các nút màu chữ */
+.quill-editor-container .ql-color .ql-picker-options {
+  padding: 5px;
+  width: 252px !important; /* Để hiển thị 6 màu mỗi hàng */
+}
+
+/* Cải thiện kích thước các ô màu */
+.quill-editor-container .ql-color .ql-picker-item {
+  width: 20px !important;
+  height: 20px !important;
+  margin: 2px;
+}
+
+/* Tùy chỉnh hiển thị của nút màu chữ */
+.quill-editor-container .ql-color .ql-picker-label {
+  padding: 2px 4px;
+}
+
+/* Tùy chỉnh hover cho các nút */
+.quill-editor-container .ql-toolbar button:hover,
+.quill-editor-container .ql-toolbar .ql-picker-label:hover {
+  color: #0d6efd;
+}
+
+/* Tùy chỉnh nút đang được chọn */
+.quill-editor-container .ql-toolbar button.ql-active,
+.quill-editor-container .ql-toolbar .ql-picker-label.ql-active,
+.quill-editor-container .ql-toolbar .ql-picker-item.ql-selected {
+  color: #0d6efd;
+}
+
+/* Tùy chỉnh viền khi focus vào editor */
+.quill-editor-container .ql-container:focus-within {
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Cải thiện giao diện khi màn hình nhỏ */
+@media (max-width: 768px) {
+  .quill-editor-container .ql-toolbar {
+    flex-wrap: wrap;
+    padding: 5px;
+  }
+  
+  .quill-editor-container .ql-formats {
+    margin-right: 5px;
+    margin-bottom: 5px;
+  }
+}
+
+/* Tùy chỉnh màu của văn bản đã được chọn màu */
+.quill-editor-container .ql-editor .ql-color-red {
+  color: #e60000;
+}
+
+.quill-editor-container .ql-editor .ql-color-orange {
+  color: #ff9900;
+}
+
+.quill-editor-container .ql-editor .ql-color-yellow {
+  color: #ffff00;
+}
+
+.quill-editor-container .ql-editor .ql-color-green {
+  color: #008a00;
+}
+
+.quill-editor-container .ql-editor .ql-color-blue {
+  color: #0066cc;
+}
+
+.quill-editor-container .ql-editor .ql-color-purple {
+  color: #9933ff;
 }
