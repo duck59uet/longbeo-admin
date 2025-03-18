@@ -1,12 +1,55 @@
-// @/components/RichTextEditor.tsx
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import 'react-quill/dist/quill.snow.css';
-import './RichTextEditor.css'; // Tạo file CSS này sau
+import './RichTextEditor.css';
 
-// Import Quill không sử dụng SSR
+// ==================== Quill Tùy Biến ====================
+import Quill from 'quill';
+
+// 1) Tùy biến video YouTube (tăng width, height)
+const Video = Quill.import('formats/video');
+class YouTubeVideo extends Video {
+  static create(value: any) {
+    let node = super.create(value);
+    if (typeof value === 'string') {
+      // Nếu là link YouTube -> chuyển thành link embed
+      const youtubeMatch = value.match(
+        /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/
+      );
+      if (youtubeMatch && youtubeMatch[1]) {
+        value = `https://www.youtube.com/embed/${youtubeMatch[1]}`;
+      }
+    }
+    node.setAttribute('src', value);
+    node.setAttribute('frameborder', '0');
+    node.setAttribute('allowfullscreen', 'true');
+
+    // Tùy chỉnh kích thước iframe
+    node.setAttribute('width', '640');
+    node.setAttribute('height', '360');
+    return node;
+  }
+}
+Quill.register('formats/video', YouTubeVideo);
+
+// 2) Đăng ký font (Times New Roman)
+const Font = Quill.import('formats/font');
+// - Nếu muốn thêm nhiều font, bạn có thể thêm tiếp vào mảng này.
+// - Lưu ý: tên value không nên có dấu cách để tránh lỗi class CSS.
+Font.whitelist = ['TimesNewRoman', 'Arial', 'Georgia', 'Tahoma', 'Verdana'];
+Quill.register(Font, true);
+
+// 3) Đăng ký size (6px -> 24px, mỗi bước +2)
+const Size = Quill.import('formats/size');
+Size.whitelist = [
+  '6px', '8px', '10px', '12px', '14px', 
+  '16px', '18px', '20px', '22px', '24px'
+];
+Quill.register(Size, true);
+
+// Import ReactQuill không dùng SSR
 const ReactQuill = dynamic(() => import('react-quill'), {
   ssr: false,
   loading: () => <div className="quill-loading">Loading editor...</div>
@@ -22,49 +65,34 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, placeh
   const [editorValue, setEditorValue] = useState('');
   const [isClient, setIsClient] = useState(false);
 
-  // Xử lý khi component được mount
   useEffect(() => {
     setIsClient(true);
-    
-    // Xử lý giá trị ban đầu
     if (value) {
       try {
-        // Kiểm tra xem value có phải là JSON không
         const parsed = JSON.parse(value);
         if (parsed.blocks) {
-          // Nếu là Draft.js format
           const htmlContent = parsed.blocks
-            .map((block: any) => {
-              if (!block.text) return '';
-              return `<p>${block.text}</p>`;
-            })
+            .map((block: any) => (block.text ? `<p>${block.text}</p>` : ''))
             .join('');
           setEditorValue(htmlContent);
         } else if (parsed.content) {
-          // Nếu là object với thuộc tính content
           setEditorValue(parsed.content);
         } else {
-          // Trường hợp khác
           setEditorValue(value);
         }
       } catch (e) {
-        // Nếu không phải JSON, giả sử là HTML
         setEditorValue(value);
       }
     }
   }, []);
 
-  // Cập nhật khi value prop thay đổi từ bên ngoài
   useEffect(() => {
     if (isClient && value && value !== editorValue) {
       try {
         const parsed = JSON.parse(value);
         if (parsed.blocks) {
           const htmlContent = parsed.blocks
-            .map((block: any) => {
-              if (!block.text) return '';
-              return `<p>${block.text}</p>`;
-            })
+            .map((block: any) => (block.text ? `<p>${block.text}</p>` : ''))
             .join('');
           setEditorValue(htmlContent);
         } else if (parsed.content) {
@@ -83,7 +111,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, placeh
     onChange(content);
   };
 
-  // Định nghĩa bộ màu cơ bản
+  // Bộ màu cơ bản
   const colors = [
     '#000000', '#e60000', '#ff9900', '#ffff00', '#008a00', '#0066cc', '#9933ff', 
     '#ffffff', '#facccc', '#ffebcc', '#ffffcc', '#cce8cc', '#cce0f5', '#ebd6ff', 
@@ -92,31 +120,35 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, placeh
     '#444444', '#5c0000', '#663d00', '#666600', '#003700', '#002966', '#3d1466'
   ];
 
-  // Cấu hình toolbar của Quill với chỉ thêm tùy chọn màu chữ
+  // Cấu hình toolbar
   const modules = {
     toolbar: {
       container: [
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        // font + size
+        [
+          { font: Font.whitelist }, 
+          { size: Size.whitelist }
+        ],
         ['bold', 'italic', 'underline', 'strike'],
-        [{ 'color': colors }], // Chỉ thêm tùy chọn màu chữ
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        [{ 'indent': '-1'}, { 'indent': '+1' }],
-        [{ 'align': [] }],
-        ['link', 'image'],
+        [{ color: colors }],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        [{ indent: '-1' }, { indent: '+1' }],
+        [{ align: [] }],
+        ['link', 'image', 'video'],
         ['clean']
       ]
     }
   };
 
-  // Định nghĩa các định dạng được hỗ trợ
+  // Danh sách các định dạng được hỗ trợ
   const formats = [
-    'header',
+    'font', 'size', 'header',
     'bold', 'italic', 'underline', 'strike',
-    'color', // Chỉ bao gồm màu chữ, không có background
+    'color',
     'list', 'bullet',
     'indent',
     'align',
-    'link', 'image',
+    'link', 'image', 'video'
   ];
 
   if (!isClient) {
