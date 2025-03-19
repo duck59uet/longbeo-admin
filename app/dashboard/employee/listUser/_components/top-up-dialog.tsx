@@ -26,20 +26,38 @@ export const TopupModal: React.FC<AlertModalProps> = ({ isOpen, onClose, data })
     return null;
   }
 
-  // Xử lý định dạng input cho số với phân cách hàng nghìn
+  // Xử lý định dạng input cho số với phân cách hàng nghìn, cho phép số âm
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    let isNegative = false;
+    let valueToProcess = inputValue;
+    
+    // Kiểm tra nếu giá trị bắt đầu bằng dấu "-" và loại bỏ dấu này khỏi phần xử lý
+    if (inputValue.startsWith('-')) {
+      isNegative = true;
+      valueToProcess = inputValue.slice(1);
+    }
+    
     // Loại bỏ tất cả ký tự không phải số
-    const rawValue = e.target.value.replace(/\D/g, '');
-    // Nếu có giá trị, định dạng với phân cách hàng nghìn theo chuẩn Việt Nam
+    const rawValue = valueToProcess.replace(/\D/g, '');
+    
+    // Nếu chỉ nhập dấu "-" mà chưa có số nào, giữ nguyên dấu "-"
+    if (isNegative && rawValue === '') {
+      setAmount('-');
+      return;
+    }
+    
+    // Nếu có giá trị, định dạng với phân cách hàng nghìn
     const formattedValue = rawValue ? new Intl.NumberFormat('en-US').format(Number(rawValue)) : '';
-    setAmount(formattedValue);
+    const finalValue = isNegative ? '-' + formattedValue : formattedValue;
+    setAmount(finalValue);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Loại bỏ định dạng phân cách hàng nghìn để lấy số thực
-    const numericAmount = Number(amount.replace(/\D/g, ''));
+    // Loại bỏ dấu phẩy định dạng hàng nghìn để lấy số thực, giữ lại dấu âm nếu có
+    const numericAmount = Number(amount.replace(/,/g, ''));
     
     // Lấy thông tin người chuyển từ form
     const form = e.currentTarget;
