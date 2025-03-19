@@ -8,6 +8,8 @@ import { toast } from 'sonner';
 
 interface AlertModalProps {
   isOpen: boolean;
+  onConfirm: () => void;
+  loading: boolean;
   onClose: () => void;
   data: any;
 }

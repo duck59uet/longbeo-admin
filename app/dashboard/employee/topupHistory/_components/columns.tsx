@@ -23,9 +23,7 @@ export const columns: ColumnDef<Employee>[] = [
     accessorKey: 'topup_amount',
     header: 'Số tiền',
     cell: ({ row }) => {
-      // Chuyển giá trị cột thành số, nếu cần
       const value = Number(row.getValue('topup_amount'));
-      // Định dạng số với phân cách hàng nghìn theo locale 'vi-VN'
       return new Intl.NumberFormat('en-US').format(value);
     }
   },
