@@ -22,7 +22,13 @@ export const columns: ColumnDef<Admin>[] = [
   },
   {
     accessorKey: 'balance_balance',
-    header: 'Số dư'
+    header: 'Số dư',
+    cell: ({ row }) => {
+      // Chuyển giá trị cột thành số, nếu cần
+      const value = Number(row.getValue('balance_balance'));
+      // Định dạng số với phân cách hàng nghìn theo locale 'vi-VN'
+      return new Intl.NumberFormat('en-US').format(value);
+    }
   },
   {
     accessorKey: 'levelname',

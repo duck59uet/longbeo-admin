@@ -25,7 +25,13 @@ export const columns: ColumnDef<Admin>[] = [
   },
   {
     accessorKey: 'price',
-    header: 'Giá tiền'
+    header: 'Giá tiền',
+    cell: ({ row }) => {
+      // Chuyển giá trị cột thành số, nếu cần
+      const value = Number(row.getValue('price'));
+      // Định dạng số với phân cách hàng nghìn theo locale 'vi-VN'
+      return new Intl.NumberFormat('en-US').format(value);
+    }
   },
   {
     accessorKey: 'discount',
