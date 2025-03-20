@@ -9,6 +9,7 @@ import { columns } from './columns';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { getOrdersHistoryFull } from '@/services/order';
+import OrderHistoryDialog from './export-history';
 
 export default function OrderHistoryPage() {
   const [data, setData] = useState([]);
@@ -60,7 +61,7 @@ export default function OrderHistoryPage() {
             onChange={handleSearchChange}
             className={'w-full md:max-w-sm'}
           />
-          {/* <Button className='ml-2 px-3 py-2' onClick={() => handleExport()}>Lịch sử đơn hàng</Button> */}
+          <OrderHistoryDialog />
         </div>
         <div className="grid gap-4">
           <Card>

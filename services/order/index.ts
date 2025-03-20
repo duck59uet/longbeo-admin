@@ -72,7 +72,7 @@ export const updateOrder = async (id: string): Promise<any> => {
 };
 
 export const exportOrderHistoryDetail = async (
-  categoryId: number,
+  categoryId: number | undefined,
   startDate: string,
   endDate: string
 ): Promise<void> => {
